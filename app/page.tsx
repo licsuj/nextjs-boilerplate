@@ -154,16 +154,17 @@ export default function ELI5AILandingPage() {
                         Money • ELI5
                       </div>
                       <div className="mt-4 text-3xl font-black leading-[1.05] tracking-tight">
-                        Inflation means your money buys less over time.
+                        Inflation means prices go up over time.
                       </div>
                     </div>
 
                     <div className="space-y-3 text-base leading-7 text-white/78">
-                      <div>Imagine you have 10 candies today.</div>
-                      <div>Next year, candy costs more.</div>
-                      <div className="font-semibold text-cyan-300">Now the same 10 candies only buy 8 candies worth.</div>
-                      <div className="pt-2 text-lg font-semibold text-white">That’s inflation.</div>
+                      <div>Think of it like a pizza.</div>
+                      <div>Five years ago, $10 got you a whole one. Today? Maybe just three slices.</div>
+                      <div className="font-semibold text-cyan-300">Your $10 didn't change. But what it buys did.</div>
+                      <div className="pt-2 text-lg font-semibold text-white">That's inflation — your money losing power without leaving your wallet.</div>
                     </div>
+
 
                     <div className="flex items-center justify-between pt-2 text-xs text-white/40">
                       <span>@eli5ai</span>
