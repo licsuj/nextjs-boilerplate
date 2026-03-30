@@ -46,7 +46,7 @@ export default function InflationPage() {
           </p>
           <Link
             href="/explore"
-            className="mt-5 inline-block rounded-2xl bg-white px-5 py-3 text-sm font-bold text-neutral-950"
+            className="mt-5 inline-block rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
           >
             Explore more money topics
           </Link>
