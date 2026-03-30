@@ -1,7 +1,5 @@
 import Link from "next/link";
-
-const BEEHIIV_PUBLIC_URL = "https://eli5ai.beehiiv.com";
-const BEEHIIV_SUBSCRIBE_URL = "https://eli5ai.beehiiv.com/subscribe";
+import Script from "next/script";
 
 export default function ELI5AILandingPage() {
   const examples = [
@@ -94,48 +92,54 @@ export default function ELI5AILandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
+    <>
+      <Script
+        src="https://subscribe-forms.beehiiv.com/embed.js"
+        strategy="afterInteractive"
+      />
 
-      <header className="sticky top-0 z-30 border-b border-white/10 bg-neutral-950/70 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#top" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-sm font-black text-neutral-950">
-              E5
-            </div>
-            <div>
-              <div className="text-lg font-semibold tracking-tight">ELI5AI.co</div>
-              <div className="text-xs text-white/45">
-                Complex topics, explained simply.
+      <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
+
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-neutral-950/70 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+            <a href="#top" className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-sm font-black text-neutral-950">
+                E5
               </div>
-            </div>
-          </a>
-
-          <nav className="hidden items-center gap-8 text-sm text-white/70 md:flex">
-            <a href="#examples" className="transition hover:text-white">
-              Examples
+              <div>
+                <div className="text-lg font-semibold tracking-tight">ELI5AI.co</div>
+                <div className="text-xs text-white/45">
+                  Complex topics, explained simply.
+                </div>
+              </div>
             </a>
-            <a href="#categories" className="transition hover:text-white">
-              Categories
-            </a>
-            <a href="#newsletter" className="transition hover:text-white">
-              Newsletter
-            </a>
-          </nav>
 
-          <a
-            href={BEEHIIV_SUBSCRIBE_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
-          >
-            Join free
-          </a>
-        </div>
-      </header>
+            <nav className="hidden items-center gap-8 text-sm text-white/70 md:flex">
+              <a href="#examples" className="transition hover:text-white">
+                Examples
+              </a>
+              <a href="#categories" className="transition hover:text-white">
+                Categories
+              </a>
+              <a href="#newsletter" className="transition hover:text-white">
+                Newsletter
+              </a>
+            </nav>
 
-      <main id="top">
-        <section className="mx-auto grid max-w-6xl gap-12 px-6 pb-16 pt-14 md:grid-cols-[1.15fr_0.85fr] md:pb-24 md:pt-20">
+            <a
+              href="#newsletter"
+              className="rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              Join free
+            </a>
+          </div>
+        </header>
+
+        <section
+          id="top"
+          className="mx-auto grid max-w-6xl gap-12 px-6 pb-16 pt-14 md:grid-cols-[1.15fr_0.85fr] md:pb-24 md:pt-20"
+        >
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-sm text-cyan-200">
               Learn faster without the jargon
@@ -153,9 +157,7 @@ export default function ELI5AILandingPage() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
-                href={BEEHIIV_SUBSCRIBE_URL}
-                target="_blank"
-                rel="noreferrer"
+                href="#newsletter"
                 className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
               >
                 Get weekly explanations
@@ -349,9 +351,12 @@ export default function ELI5AILandingPage() {
           </div>
         </section>
 
-        <section id="newsletter" className="mx-auto max-w-6xl px-6 pb-20 pt-6 md:pb-28">
+        <section
+          id="newsletter"
+          className="mx-auto max-w-6xl px-6 pb-20 pt-6 md:pb-28"
+        >
           <div className="overflow-hidden rounded-[36px] border border-white/10 bg-[linear-gradient(135deg,rgba(34,211,238,0.14),rgba(168,85,247,0.12),rgba(255,255,255,0.04))] p-8 md:p-12">
-            <div className="grid gap-10 md:grid-cols-[1fr_0.9fr] md:items-end">
+            <div className="grid gap-10 md:grid-cols-[1fr_0.95fr] md:items-start">
               <div>
                 <div className="text-sm uppercase tracking-[0.24em] text-cyan-200/85">
                   Newsletter
@@ -360,38 +365,40 @@ export default function ELI5AILandingPage() {
                   Get one clear explanation every week.
                 </h2>
                 <p className="mt-4 max-w-xl text-base leading-7 text-white/70">
-                  Simple takes on money, AI, psychology, and tech — sent to your
-                  inbox without the jargon.
+                  Money, AI, psychology, and tech — explained simply, in a way
+                  that actually makes sense.
+                </p>
+                <p className="mt-4 text-sm text-white/45">
+                  One useful email. No spam. Easy unsubscribe.
                 </p>
               </div>
 
               <div className="rounded-[28px] border border-white/10 bg-neutral-950/55 p-4 backdrop-blur">
-                <div className="flex flex-col gap-3">
-                  <a
-                    href={BEEHIIV_SUBSCRIBE_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-2xl bg-white px-5 py-3 text-center text-sm font-bold text-neutral-950 transition hover:bg-cyan-100"
-                  >
-                    Join the newsletter
-                  </a>
-                  <a
-                    href={BEEHIIV_PUBLIC_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-white/10"
-                  >
-                    View publication
-                  </a>
-                  <div className="px-1 text-xs text-white/40">
-                    One useful email. No spam. Easy unsubscribe.
-                  </div>
+                <div className="overflow-hidden rounded-[20px] border border-white/10 bg-transparent">
+                  <iframe
+                    src="https://subscribe-forms.beehiiv.com/ba3c832d-c266-4c66-8f72-1795922e71ce"
+                    className="beehiiv-embed"
+                    data-test-id="beehiiv-embed"
+                    frameBorder="0"
+                    scrolling="no"
+                    style={{
+                      width: "100%",
+                      height: "327px",
+                      margin: 0,
+                      borderRadius: "20px",
+                      backgroundColor: "transparent",
+                      boxShadow: "none",
+                      maxWidth: "100%",
+                      display: "block",
+                    }}
+                    title="Beehiiv newsletter signup"
+                  />
                 </div>
               </div>
             </div>
           </div>
         </section>
       </main>
-    </div>
+    </>
   );
 }
