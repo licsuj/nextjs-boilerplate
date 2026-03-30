@@ -1,10 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
-  title: "ELI5AI.co — Complex topics, explained simply",
-  description:
-    "Simple explanations for money, AI, psychology, and tech. Built for short-form learning and social-first content.",
+  title: "ELI5AI.co",
+  description: "Complex topics, explained simply.",
 };
 
 export default function RootLayout({
@@ -14,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <GoogleAnalytics gaId="G-M0LJMK6XMQ" />
+      </body>
     </html>
   );
 }
