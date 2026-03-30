@@ -45,7 +45,7 @@ export default function ChatGPTPage() {
           </p>
           <Link
             href="/explore"
-            className="mt-5 inline-block rounded-2xl bg-white px-5 py-3 text-sm font-bold text-neutral-950"
+            className="mt-5 inline-block rounded-2xl border border-cyan-200/20 bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 shadow-lg shadow-cyan-500/10 transition hover:bg-cyan-200"
           >
             Explore more AI topics
           </Link>
