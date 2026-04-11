@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Script from "next/script";
 import type { Metadata } from "next";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
   title: "ELI5AI.co | AI explained simply",
@@ -28,7 +30,8 @@ export const metadata: Metadata = {
 const featuredExplainers = [
   {
     title: "What is ChatGPT?",
-    blurb: "A simple explanation of how ChatGPT works and what people actually use it for.",
+    blurb:
+      "A simple explanation of how ChatGPT works and what people actually use it for.",
     href: "/explain/what-is-chatgpt",
     category: "AI Basics",
   },
@@ -149,41 +152,7 @@ export default function HomePage() {
       <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
 
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-neutral-950/80 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-sm font-black text-neutral-950">
-                E5
-              </div>
-              <div>
-                <div className="text-lg font-semibold tracking-tight">ELI5AI.co</div>
-                <div className="text-xs text-white/45">AI explained simply</div>
-              </div>
-            </Link>
-
-            <nav className="hidden items-center gap-8 text-sm text-white/70 md:flex">
-              <Link href="/explore" className="transition hover:text-white">
-                Explore
-              </Link>
-              <Link href="/category/ai-basics" className="transition hover:text-white">
-                AI Basics
-              </Link>
-              <Link href="/category/ai-tools" className="transition hover:text-white">
-                AI Tools
-              </Link>
-              <a href="#newsletter" className="transition hover:text-white">
-                Newsletter
-              </a>
-            </nav>
-
-            <a
-              href="#newsletter"
-              className="rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              Join free
-            </a>
-          </div>
-        </header>
+        <SiteHeader />
 
         <section className="mx-auto grid max-w-6xl gap-12 px-6 pb-16 pt-14 md:grid-cols-[1.1fr_0.9fr] md:pb-24 md:pt-20">
           <div className="max-w-3xl">
@@ -230,7 +199,9 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                <div className="text-2xl font-semibold tracking-tight">Beginner friendly</div>
+                <div className="text-2xl font-semibold tracking-tight">
+                  Beginner friendly
+                </div>
                 <div className="mt-1 text-sm text-white/55">
                   No jargon unless it is explained
                 </div>
@@ -261,14 +232,19 @@ export default function HomePage() {
                         AI Basics • ELI5
                       </div>
                       <div className="mt-4 text-3xl font-black leading-[1.05] tracking-tight">
-                        An AI agent is an AI system that does tasks, not just replies.
+                        An AI agent is an AI system that does tasks, not just
+                        replies.
                       </div>
                     </div>
 
                     <div className="mt-6 space-y-3 text-base leading-7 text-white/78">
-                      <div>Think of a normal chatbot like someone answering your question.</div>
                       <div>
-                        An AI agent is more like an assistant that can take steps for you.
+                        Think of a normal chatbot like someone answering your
+                        question.
+                      </div>
+                      <div>
+                        An AI agent is more like an assistant that can take steps
+                        for you.
                       </div>
                       <div className="font-semibold text-cyan-300">
                         It can read, decide, act, and sometimes use tools.
@@ -352,7 +328,9 @@ export default function HomePage() {
                 <div className="text-2xl font-semibold tracking-tight">
                   {item.title}
                 </div>
-                <p className="mt-3 text-sm leading-6 text-white/65">{item.desc}</p>
+                <p className="mt-3 text-sm leading-6 text-white/65">
+                  {item.desc}
+                </p>
                 <div className="mt-5 text-sm font-semibold text-cyan-300">
                   Explore →
                 </div>
@@ -372,7 +350,8 @@ export default function HomePage() {
               </h2>
             </div>
             <p className="max-w-md text-sm leading-6 text-white/50">
-              Every page answers one clear question and links you to the next topic naturally.
+              Every page answers one clear question and links you to the next
+              topic naturally.
             </p>
           </div>
 
@@ -389,7 +368,9 @@ export default function HomePage() {
                 <h3 className="mt-4 text-2xl font-semibold tracking-tight">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-white/58">{item.blurb}</p>
+                <p className="mt-3 text-sm leading-6 text-white/58">
+                  {item.blurb}
+                </p>
                 <div className="mt-6 text-sm font-semibold text-cyan-300 transition group-hover:text-cyan-200">
                   Read explanation →
                 </div>
@@ -414,8 +395,12 @@ export default function HomePage() {
                 key={item.title}
                 className="rounded-[28px] border border-white/10 bg-white/5 p-6"
               >
-                <h3 className="text-xl font-semibold tracking-tight">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/58">{item.desc}</p>
+                <h3 className="text-xl font-semibold tracking-tight">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-white/58">
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -439,7 +424,9 @@ export default function HomePage() {
                   className="rounded-2xl border border-white/10 bg-black/20 p-5"
                 >
                   <h3 className="text-lg font-semibold">{item.question}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/65">{item.answer}</p>
+                  <p className="mt-2 text-sm leading-6 text-white/65">
+                    {item.answer}
+                  </p>
                 </div>
               ))}
             </div>
@@ -493,6 +480,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <SiteFooter />
       </main>
     </>
   );
