@@ -3,6 +3,8 @@ import Script from "next/script";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { explainers } from "@/lib/explainers";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -25,13 +27,14 @@ function categoryToSlug(category: string): string {
 
 function buildFaq(explainer: (typeof explainers)[number]) {
   const cleanTitle = explainer.title.replace(/\?$/, "");
+
   return [
     {
       question: `${cleanTitle} in simple terms`,
       answer: explainer.intro,
     },
     {
-      question: `Why does ${cleanTitle.replace(/^What is /i, "").replace(/^What is an /i, "").replace(/^What is a /i, "")} matter?`,
+      question: `Why does ${cleanTitle} matter?`,
       answer: explainer.whyItMatters,
     },
     {
@@ -145,44 +148,7 @@ export default async function ExplainerPage({ params }: Props) {
       <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
 
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-neutral-950/80 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-sm font-black text-neutral-950">
-                E5
-              </div>
-              <div>
-                <div className="text-lg font-semibold tracking-tight">ELI5AI.co</div>
-                <div className="text-xs text-white/45">AI explained simply</div>
-              </div>
-            </Link>
-
-            <nav className="hidden items-center gap-8 text-sm text-white/70 md:flex">
-              <Link href="/explore" className="transition hover:text-white">
-                Explore
-              </Link>
-              <Link href="/category/ai-basics" className="transition hover:text-white">
-                AI Basics
-              </Link>
-              <Link href="/category/ai-tools" className="transition hover:text-white">
-                AI Tools
-              </Link>
-              <Link href="/about" className="transition hover:text-white">
-                About
-              </Link>
-              <Link href="/newsletter" className="transition hover:text-white">
-                Newsletter
-              </Link>
-            </nav>
-
-            <Link
-              href="/newsletter"
-              className="rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              Join free
-            </Link>
-          </div>
-        </header>
+        <SiteHeader />
 
         <article className="mx-auto max-w-4xl px-6 py-16">
           <nav
@@ -377,35 +343,7 @@ export default async function ExplainerPage({ params }: Props) {
           </section>
         </article>
 
-        <footer className="border-t border-white/10">
-          <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 md:flex-row md:items-center md:justify-between">
-            <div>
-              <div className="text-lg font-semibold tracking-tight">ELI5AI.co</div>
-              <div className="mt-1 text-sm text-white/45">AI explained simply</div>
-            </div>
-
-            <nav className="flex flex-wrap gap-5 text-sm text-white/65">
-              <Link href="/" className="transition hover:text-white">
-                Home
-              </Link>
-              <Link href="/explore" className="transition hover:text-white">
-                Explore
-              </Link>
-              <Link href="/category/ai-basics" className="transition hover:text-white">
-                AI Basics
-              </Link>
-              <Link href="/category/ai-tools" className="transition hover:text-white">
-                AI Tools
-              </Link>
-              <Link href="/about" className="transition hover:text-white">
-                About
-              </Link>
-              <Link href="/newsletter" className="transition hover:text-white">
-                Newsletter
-              </Link>
-            </nav>
-          </div>
-        </footer>
+        <SiteFooter />
       </main>
     </>
   );
