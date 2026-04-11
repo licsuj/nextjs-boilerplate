@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
   title: "About",
@@ -8,12 +10,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://eli5ai.co/about",
   },
+  openGraph: {
+    title: "About ELI5AI.co",
+    description:
+      "Learn what ELI5AI.co is, why it exists, and who it is built for.",
+    url: "https://eli5ai.co/about",
+    siteName: "ELI5AI.co",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About ELI5AI.co",
+    description:
+      "Learn what ELI5AI.co is, why it exists, and who it is built for.",
+  },
 };
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-neutral-950 px-6 py-16 text-white">
-      <div className="mx-auto max-w-4xl">
+    <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
+
+      <SiteHeader />
+
+      <div className="mx-auto max-w-4xl px-6 py-16">
         <div className="mb-10">
           <p className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
             About
@@ -147,6 +167,8 @@ export default function AboutPage() {
           </section>
         </div>
       </div>
+
+      <SiteFooter />
     </main>
   );
 }
