@@ -1,98 +1,146 @@
 import Link from "next/link";
 import Script from "next/script";
+import type { Metadata } from "next";
 
-export default function ELI5AILandingPage() {
-  const examples = [
-    {
-      title: "What is inflation?",
-      blurb: "Why the same money buys less over time.",
-      tag: "Money",
-      href: "/explain/inflation",
-    },
-    {
-      title: "What is an API?",
-      blurb: "How apps talk to each other behind the scenes.",
-      tag: "Tech",
-      href: "/explain/api",
-    },
-    {
-      title: "What is dopamine?",
-      blurb: "Why your brain keeps chasing rewards.",
-      tag: "Psychology",
-      href: "/explore",
-    },
-    {
-      title: "What is ChatGPT?",
-      blurb: "A simple way to understand AI assistants.",
-      tag: "AI",
-      href: "/explain/chatgpt",
-    },
-    {
-      title: "What is SaaS?",
-      blurb: "Why some software is paid monthly instead of once.",
-      tag: "Business",
-      href: "/explore",
-    },
-    {
-      title: "What is cloud computing?",
-      blurb: "Why your files and apps can live on the internet.",
-      tag: "Tech",
-      href: "/explore",
-    },
-  ];
+export const metadata: Metadata = {
+  title: "ELI5AI.co | AI explained simply",
+  description:
+    "Learn AI in plain English. Simple explanations of ChatGPT, AI agents, RAG, prompts, APIs, automation, and more.",
+  alternates: {
+    canonical: "https://eli5ai.co",
+  },
+  openGraph: {
+    title: "ELI5AI.co | AI explained simply",
+    description:
+      "Simple AI explanations for beginners and professionals. Learn ChatGPT, AI agents, RAG, prompts, APIs, and automation in plain English.",
+    url: "https://eli5ai.co",
+    siteName: "ELI5AI.co",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ELI5AI.co | AI explained simply",
+    description:
+      "Learn AI in plain English with short, clear explanations that actually make sense.",
+  },
+};
 
-  const categories = [
-    {
-      title: "Money",
-      desc: "Inflation, debt, investing, taxes, and the basics that affect your day-to-day life.",
-      accent: "from-emerald-400/20 to-emerald-500/5",
-    },
-    {
-      title: "AI",
-      desc: "ChatGPT, prompts, automation, and how modern AI tools actually work.",
-      accent: "from-cyan-400/20 to-cyan-500/5",
-    },
-    {
-      title: "Psychology",
-      desc: "Dopamine, habits, focus, motivation, and why your brain does what it does.",
-      accent: "from-violet-400/20 to-violet-500/5",
-    },
-    {
-      title: "Tech",
-      desc: "APIs, cloud, databases, backend systems, and the tech you use every day.",
-      accent: "from-amber-400/20 to-amber-500/5",
-    },
-  ];
+const featuredExplainers = [
+  {
+    title: "What is ChatGPT?",
+    blurb: "A simple explanation of how ChatGPT works and what people actually use it for.",
+    href: "/explain/what-is-chatgpt",
+    category: "AI Basics",
+  },
+  {
+    title: "What is an AI agent?",
+    blurb: "The difference between a chatbot and an AI agent, explained simply.",
+    href: "/explain/what-is-an-ai-agent",
+    category: "AI Basics",
+  },
+  {
+    title: "What is RAG?",
+    blurb: "Why AI tools sometimes search your data before answering.",
+    href: "/explain/what-is-rag",
+    category: "AI Workflows",
+  },
+  {
+    title: "What is prompt engineering?",
+    blurb: "How better instructions create better AI outputs.",
+    href: "/explain/what-is-prompt-engineering",
+    category: "AI Basics",
+  },
+  {
+    title: "ChatGPT vs Claude",
+    blurb: "A plain-English comparison of two popular AI assistants.",
+    href: "/explain/chatgpt-vs-claude",
+    category: "Comparisons",
+  },
+  {
+    title: "What is an API?",
+    blurb: "The easiest way to understand how apps and AI tools connect.",
+    href: "/explain/what-is-an-api",
+    category: "AI Tools",
+  },
+];
 
-  const stats = [
-    { value: "15 sec", label: "Average explanation" },
-    { value: "4", label: "Main categories" },
-    { value: "100+", label: "Topics to explore next" },
-  ];
+const topicClusters = [
+  {
+    title: "AI Basics",
+    desc: "Start here if you are new to AI. Learn the terms, concepts, and building blocks first.",
+    href: "/category/ai-basics",
+  },
+  {
+    title: "AI Tools",
+    desc: "Understand ChatGPT, Claude, Gemini, APIs, copilots, and the tools people use every day.",
+    href: "/category/ai-tools",
+  },
+  {
+    title: "AI Workflows",
+    desc: "Learn automation, RAG, agents, prompts, and how AI fits into real work.",
+    href: "/category/ai-workflows",
+  },
+  {
+    title: "AI Comparisons",
+    desc: "Compare tools, models, and concepts without jargon or hype.",
+    href: "/category/ai-comparisons",
+  },
+];
 
-  const benefits = [
-    {
-      title: "Easy to understand",
-      desc: "Clear explanations without jargon, waffle, or confusing language.",
-    },
-    {
-      title: "Useful in real life",
-      desc: "Learn topics that affect your money, work, habits, and everyday decisions.",
-    },
-    {
-      title: "Fast to read",
-      desc: "Get the main idea in seconds, then go deeper only if you want to.",
-    },
-  ];
+const benefits = [
+  {
+    title: "Plain English",
+    desc: "No overcomplicated explanations, no technical waffle, and no unnecessary jargon.",
+  },
+  {
+    title: "Built for search and learning",
+    desc: "Every page answers one clear question so you can understand the topic quickly.",
+  },
+  {
+    title: "Useful in real life",
+    desc: "Learn the AI terms, tools, and workflows that actually matter at work and online.",
+  },
+];
 
-  const audience = [
-    "People who want to understand money better",
-    "People learning AI, business, and tech",
-    "People who hate overcomplicated explanations",
-  ];
+const faq = [
+  {
+    question: "What is ELI5AI?",
+    answer:
+      "ELI5AI is a site that explains AI terms, tools, and concepts in plain English.",
+  },
+  {
+    question: "Who is ELI5AI for?",
+    answer:
+      "It is for beginners, professionals, creators, and anyone who wants to understand AI without technical jargon.",
+  },
+  {
+    question: "What topics does ELI5AI cover?",
+    answer:
+      "The site covers ChatGPT, AI agents, RAG, prompts, APIs, automation, comparisons, and practical AI workflows.",
+  },
+];
+
+export default function HomePage() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
 
   return (
     <>
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Script
         src="https://subscribe-forms.beehiiv.com/embed.js"
         strategy="afterInteractive"
@@ -101,27 +149,28 @@ export default function ELI5AILandingPage() {
       <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
 
-        <header className="sticky top-0 z-30 border-b border-white/10 bg-neutral-950/70 backdrop-blur-xl">
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-neutral-950/80 backdrop-blur-xl">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-            <a href="#top" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-sm font-black text-neutral-950">
                 E5
               </div>
               <div>
                 <div className="text-lg font-semibold tracking-tight">ELI5AI.co</div>
-                <div className="text-xs text-white/45">
-                  Complex topics, explained simply.
-                </div>
+                <div className="text-xs text-white/45">AI explained simply</div>
               </div>
-            </a>
+            </Link>
 
             <nav className="hidden items-center gap-8 text-sm text-white/70 md:flex">
-              <a href="#examples" className="transition hover:text-white">
-                Examples
-              </a>
-              <a href="#categories" className="transition hover:text-white">
-                Categories
-              </a>
+              <Link href="/explore" className="transition hover:text-white">
+                Explore
+              </Link>
+              <Link href="/category/ai-basics" className="transition hover:text-white">
+                AI Basics
+              </Link>
+              <Link href="/category/ai-tools" className="transition hover:text-white">
+                AI Tools
+              </Link>
               <a href="#newsletter" className="transition hover:text-white">
                 Newsletter
               </a>
@@ -136,52 +185,56 @@ export default function ELI5AILandingPage() {
           </div>
         </header>
 
-        <section
-          id="top"
-          className="mx-auto grid max-w-6xl gap-12 px-6 pb-16 pt-14 md:grid-cols-[1.15fr_0.85fr] md:pb-24 md:pt-20"
-        >
+        <section className="mx-auto grid max-w-6xl gap-12 px-6 pb-16 pt-14 md:grid-cols-[1.1fr_0.9fr] md:pb-24 md:pt-20">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-sm text-cyan-200">
-              Learn faster without the jargon
+              Plain-English AI learning
             </div>
 
             <h1 className="mt-6 text-5xl font-semibold leading-[0.96] tracking-tight text-white md:text-7xl">
-              Understand
-              <span className="block text-cyan-300">anything faster.</span>
+              AI explained
+              <span className="block text-cyan-300">simply.</span>
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/68 md:text-xl">
-              ELI5AI breaks down confusing topics into short, memorable explanations
-              that are actually easy to understand.
+              Learn ChatGPT, AI agents, prompts, RAG, APIs, automation, and more
+              through short, clear explanations that actually make sense.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/explore"
+                className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
+              >
+                Explore AI topics
+              </Link>
               <a
                 href="#newsletter"
-                className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
+                className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
               >
                 Get weekly explanations
               </a>
-              <Link
-                href="/explore"
-                className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
-              >
-                Explore topics
-              </Link>
             </div>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-2xl shadow-black/20"
-                >
-                  <div className="text-2xl font-semibold tracking-tight">
-                    {stat.value}
-                  </div>
-                  <div className="mt-1 text-sm text-white/55">{stat.label}</div>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                <div className="text-2xl font-semibold tracking-tight">AI only</div>
+                <div className="mt-1 text-sm text-white/55">
+                  Focused topical authority
                 </div>
-              ))}
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                <div className="text-2xl font-semibold tracking-tight">Short reads</div>
+                <div className="mt-1 text-sm text-white/55">
+                  Fast explanations, then deeper links
+                </div>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                <div className="text-2xl font-semibold tracking-tight">Beginner friendly</div>
+                <div className="mt-1 text-sm text-white/55">
+                  No jargon unless it is explained
+                </div>
+              </div>
             </div>
           </div>
 
@@ -193,42 +246,45 @@ export default function ELI5AILandingPage() {
                   <div>
                     <div className="text-sm text-white/45">Featured explainer</div>
                     <div className="mt-1 text-xl font-semibold tracking-tight">
-                      What is inflation?
+                      What is an AI agent?
                     </div>
                   </div>
                   <div className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-200">
-                    15 sec read
+                    2 min read
                   </div>
                 </div>
 
-                <div className="aspect-[9/16] rounded-[24px] bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-4">
+                <div className="rounded-[24px] bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-4">
                   <div className="flex h-full flex-col justify-between rounded-[18px] border border-white/10 bg-neutral-950 p-5">
                     <div>
                       <div className="inline-flex rounded-full bg-white/6 px-3 py-1 text-xs font-semibold tracking-wide text-white/60">
-                        Money • ELI5
+                        AI Basics • ELI5
                       </div>
                       <div className="mt-4 text-3xl font-black leading-[1.05] tracking-tight">
-                        Inflation means prices go up over time.
+                        An AI agent is an AI system that does tasks, not just replies.
                       </div>
                     </div>
 
-                    <div className="space-y-3 text-base leading-7 text-white/78">
-                      <div>Think of it like a pizza.</div>
+                    <div className="mt-6 space-y-3 text-base leading-7 text-white/78">
+                      <div>Think of a normal chatbot like someone answering your question.</div>
                       <div>
-                        Five years ago, €10 got you a whole one. Today, maybe just
-                        three slices.
+                        An AI agent is more like an assistant that can take steps for you.
                       </div>
                       <div className="font-semibold text-cyan-300">
-                        Your €10 did not change. What it buys did.
+                        It can read, decide, act, and sometimes use tools.
                       </div>
                       <div className="pt-2 text-lg font-semibold text-white">
-                        That is inflation.
+                        That is why agents feel more useful than simple chat.
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-2 text-xs text-white/40">
-                      <span>@eli5ai</span>
-                      <span>Start with the basics</span>
+                    <div className="pt-6">
+                      <Link
+                        href="/explain/what-is-an-ai-agent"
+                        className="text-sm font-semibold text-cyan-300 hover:text-cyan-200"
+                      >
+                        Read full explanation →
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -245,11 +301,11 @@ export default function ELI5AILandingPage() {
                   Why this exists
                 </div>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-                  Most things are explained in a complicated way.
+                  Most AI content is either too technical or too vague.
                 </h2>
                 <p className="mt-4 max-w-2xl text-base leading-7 text-white/65">
-                  ELI5AI exists to make money, AI, psychology, and tech easier to
-                  understand for normal people.
+                  ELI5AI makes AI easier to understand with short, practical,
+                  plain-English explanations for real people.
                 </p>
               </div>
 
@@ -258,7 +314,11 @@ export default function ELI5AILandingPage() {
                   Who this is for
                 </div>
                 <div className="mt-4 space-y-3">
-                  {audience.map((item) => (
+                  {[
+                    "Beginners trying to understand AI properly",
+                    "Professionals hearing AI terms at work",
+                    "Creators, founders, and curious people",
+                  ].map((item) => (
                     <div
                       key={item}
                       className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/75"
@@ -272,31 +332,59 @@ export default function ELI5AILandingPage() {
           </div>
         </section>
 
-        <section id="examples" className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+          <div className="mb-8">
+            <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
+              Topic clusters
+            </div>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
+              Start with the right AI category.
+            </h2>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {topicClusters.map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="rounded-[28px] border border-white/10 bg-white/5 p-6 transition hover:bg-white/[0.07]"
+              >
+                <div className="text-2xl font-semibold tracking-tight">
+                  {item.title}
+                </div>
+                <p className="mt-3 text-sm leading-6 text-white/65">{item.desc}</p>
+                <div className="mt-5 text-sm font-semibold text-cyan-300">
+                  Explore →
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
               <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
-                Examples
+                Featured explainers
               </div>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                Topics people actually want explained.
+                Learn the AI topics people actually search for.
               </h2>
             </div>
             <p className="max-w-md text-sm leading-6 text-white/50">
-              Start with the basics, then explore the topics that affect your work,
-              money, and everyday life.
+              Every page answers one clear question and links you to the next topic naturally.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {examples.map((item) => (
+            {featuredExplainers.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
                 className="group rounded-[28px] border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.07]"
               >
                 <div className="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/55">
-                  {item.tag}
+                  {item.category}
                 </div>
                 <h3 className="mt-4 text-2xl font-semibold tracking-tight">
                   {item.title}
@@ -308,30 +396,14 @@ export default function ELI5AILandingPage() {
               </Link>
             ))}
           </div>
-        </section>
 
-        <section id="categories" className="mx-auto max-w-6xl px-6 py-4 md:py-8">
-          <div className="mb-8">
-            <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
-              Categories
-            </div>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-              Topics you should actually understand.
-            </h2>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {categories.map((item) => (
-              <div
-                key={item.title}
-                className={`rounded-[28px] border border-white/10 bg-gradient-to-br ${item.accent} p-6`}
-              >
-                <div className="text-2xl font-semibold tracking-tight">
-                  {item.title}
-                </div>
-                <p className="mt-3 text-sm leading-6 text-white/65">{item.desc}</p>
-              </div>
-            ))}
+          <div className="mt-8">
+            <Link
+              href="/explore"
+              className="inline-flex rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+            >
+              View all explainers
+            </Link>
           </div>
         </section>
 
@@ -342,12 +414,35 @@ export default function ELI5AILandingPage() {
                 key={item.title}
                 className="rounded-[28px] border border-white/10 bg-white/5 p-6"
               >
-                <h3 className="text-xl font-semibold tracking-tight">
-                  {item.title}
-                </h3>
+                <h3 className="text-xl font-semibold tracking-tight">{item.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-white/58">{item.desc}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-6 py-8 md:py-16">
+          <div className="rounded-[32px] border border-white/10 bg-white/5 p-8">
+            <div className="mb-8">
+              <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
+                FAQ
+              </div>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
+                Common questions about ELI5AI
+              </h2>
+            </div>
+
+            <div className="space-y-4">
+              {faq.map((item) => (
+                <div
+                  key={item.question}
+                  className="rounded-2xl border border-white/10 bg-black/20 p-5"
+                >
+                  <h3 className="text-lg font-semibold">{item.question}</h3>
+                  <p className="mt-2 text-sm leading-6 text-white/65">{item.answer}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -362,11 +457,11 @@ export default function ELI5AILandingPage() {
                   Newsletter
                 </div>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                  Get one clear explanation every week.
+                  Get one clear AI explanation every week.
                 </h2>
                 <p className="mt-4 max-w-xl text-base leading-7 text-white/70">
-                  Money, AI, psychology, and tech — explained simply, in a way
-                  that actually makes sense.
+                  Learn AI step by step with simple explanations of terms, tools,
+                  and workflows that actually matter.
                 </p>
                 <p className="mt-4 text-sm text-white/45">
                   One useful email. No spam. Easy unsubscribe.
