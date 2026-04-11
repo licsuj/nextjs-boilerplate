@@ -3,6 +3,8 @@ import Script from "next/script";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { explainers, type ExplainerCategory } from "@/lib/explainers";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -201,8 +203,12 @@ export default async function CategoryPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
 
-      <main className="min-h-screen bg-neutral-950 px-6 py-16 text-white">
-        <div className="mx-auto max-w-6xl">
+      <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
+
+        <SiteHeader />
+
+        <div className="mx-auto max-w-6xl px-6 py-16">
           <header className="mb-12">
             <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-sm text-cyan-200">
               Category
@@ -221,15 +227,25 @@ export default async function CategoryPage({ params }: Props) {
                 <div className="text-2xl font-semibold tracking-tight">
                   {items.length}
                 </div>
-                <div className="mt-1 text-sm text-white/55">Explainers in this category</div>
+                <div className="mt-1 text-sm text-white/55">
+                  Explainers in this category
+                </div>
               </div>
               <div className="rounded-[24px] border border-white/10 bg-white/5 p-5">
-                <div className="text-2xl font-semibold tracking-tight">Beginner friendly</div>
-                <div className="mt-1 text-sm text-white/55">Written in plain English</div>
+                <div className="text-2xl font-semibold tracking-tight">
+                  Beginner friendly
+                </div>
+                <div className="mt-1 text-sm text-white/55">
+                  Written in plain English
+                </div>
               </div>
               <div className="rounded-[24px] border border-white/10 bg-white/5 p-5">
-                <div className="text-2xl font-semibold tracking-tight">Built to connect</div>
-                <div className="mt-1 text-sm text-white/55">Each page links to the next step</div>
+                <div className="text-2xl font-semibold tracking-tight">
+                  Built to connect
+                </div>
+                <div className="mt-1 text-sm text-white/55">
+                  Each page links to the next step
+                </div>
               </div>
             </div>
           </header>
@@ -367,6 +383,8 @@ export default async function CategoryPage({ params }: Props) {
             </div>
           </section>
         </div>
+
+        <SiteFooter />
       </main>
     </>
   );
