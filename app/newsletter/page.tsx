@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
   title: "Newsletter",
@@ -7,6 +9,20 @@ export const metadata: Metadata = {
     "Subscribe to the ELI5AI newsletter and get one clear AI explanation every week.",
   alternates: {
     canonical: "https://eli5ai.co/newsletter",
+  },
+  openGraph: {
+    title: "ELI5AI Newsletter",
+    description:
+      "Subscribe to the ELI5AI newsletter and get one clear AI explanation every week.",
+    url: "https://eli5ai.co/newsletter",
+    siteName: "ELI5AI.co",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ELI5AI Newsletter",
+    description:
+      "Subscribe to the ELI5AI newsletter and get one clear AI explanation every week.",
   },
 };
 
@@ -40,8 +56,12 @@ export default function NewsletterPage() {
         strategy="afterInteractive"
       />
 
-      <main className="min-h-screen bg-neutral-950 px-6 py-16 text-white">
-        <div className="mx-auto max-w-6xl">
+      <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
+
+        <SiteHeader />
+
+        <div className="mx-auto max-w-6xl px-6 py-16">
           <div className="grid gap-10 md:grid-cols-[1fr_0.95fr] md:items-start">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
@@ -125,6 +145,8 @@ export default function NewsletterPage() {
             </div>
           </div>
         </div>
+
+        <SiteFooter />
       </main>
     </>
   );
