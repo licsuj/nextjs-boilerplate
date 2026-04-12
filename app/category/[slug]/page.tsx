@@ -17,9 +17,19 @@ const categoryConfig = {
     description:
       "Learn the core AI terms and concepts in plain English, including ChatGPT, LLMs, tokens, prompts, context windows, and more.",
     intro:
-      "This category is the best place to start if you want to understand AI properly. It covers the basic terms, concepts, and building blocks that appear again and again in AI tools and conversations.",
+      "This category is the best place to start if you want to understand AI properly. It covers the core terms, concepts, and building blocks that appear again and again in AI tools and conversations.",
     whyMatters:
       "Most people struggle with AI because they jump into tools before understanding the foundations. These pages help you build that base first.",
+    startHere: [
+      "what-is-chatgpt",
+      "what-is-an-llm",
+      "what-is-a-token-in-ai",
+      "what-is-prompt-engineering",
+    ],
+    nextCategories: [
+      { title: "AI Tools", href: "/category/ai-tools" },
+      { title: "AI Workflows", href: "/category/ai-workflows" },
+    ],
     faq: [
       {
         question: "What should I learn first in AI?",
@@ -47,11 +57,21 @@ const categoryConfig = {
       "This category explains the tools, components, and systems people hear about when using or building with AI. It is for understanding what the tools actually do and how they connect.",
     whyMatters:
       "People often use AI tools without really understanding what sits underneath them. These explainers help bridge that gap.",
+    startHere: [
+      "what-is-an-api",
+      "what-is-an-embedding",
+      "what-is-a-vector-database",
+      "what-is-inference-in-ai",
+    ],
+    nextCategories: [
+      { title: "AI Workflows", href: "/category/ai-workflows" },
+      { title: "Comparisons", href: "/category/ai-comparisons" },
+    ],
     faq: [
       {
         question: "What is included in AI Tools?",
         answer:
-          "AI Tools covers practical concepts and systems such as APIs, embeddings, vector databases, copilots, and other tool-related topics.",
+          "AI Tools covers practical concepts and systems such as APIs, embeddings, vector databases, inference, and other tool-related topics.",
       },
       {
         question: "Do I need to be technical to understand these pages?",
@@ -74,6 +94,16 @@ const categoryConfig = {
       "This category focuses on how AI works in practice. Instead of just defining tools, it explains how different pieces come together in useful real-world workflows.",
     whyMatters:
       "This is where AI becomes practical. Once you understand workflows, you start to see how AI can support research, support, writing, automation, and internal systems.",
+    startHere: [
+      "what-is-rag",
+      "what-is-an-ai-agent",
+      "what-is-ai-automation",
+      "what-is-mcp",
+    ],
+    nextCategories: [
+      { title: "AI Tools", href: "/category/ai-tools" },
+      { title: "Comparisons", href: "/category/ai-comparisons" },
+    ],
     faq: [
       {
         question: "What is an AI workflow?",
@@ -101,11 +131,21 @@ const categoryConfig = {
       "This category helps you compare AI tools and concepts side by side in a way that is simple, practical, and easy to follow.",
     whyMatters:
       "Comparison pages are where many people make decisions. They help users choose the right AI tool or understand the difference between similar concepts.",
+    startHere: [
+      "chatgpt-vs-claude",
+      "chatgpt-vs-gemini",
+      "claude-vs-gemini",
+      "ai-agent-vs-chatbot",
+    ],
+    nextCategories: [
+      { title: "AI Basics", href: "/category/ai-basics" },
+      { title: "AI Tools", href: "/category/ai-tools" },
+    ],
     faq: [
       {
         question: "What kind of pages are in AI Comparisons?",
         answer:
-          "This category includes plain-English comparisons such as ChatGPT vs Claude and ChatGPT vs Gemini.",
+          "This category includes plain-English comparisons such as ChatGPT vs Claude, ChatGPT vs Gemini, Claude vs Gemini, and concept comparisons like AI agent vs chatbot.",
       },
       {
         question: "Who are comparison pages for?",
@@ -164,6 +204,9 @@ export default async function CategoryPage({ params }: Props) {
   if (!category) notFound();
 
   const items = explainers.filter((item) => item.category === category.label);
+  const featuredStartHere = explainers.filter((item) =>
+    category.startHere.includes(item.slug)
+  );
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -190,6 +233,31 @@ export default async function CategoryPage({ params }: Props) {
     })),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://eli5ai.co",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Explore",
+        item: "https://eli5ai.co/explore",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: category.label,
+        item: `https://eli5ai.co/category/${slug}`,
+      },
+    ],
+  };
+
   return (
     <>
       <Script
@@ -202,6 +270,11 @@ export default async function CategoryPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
+      <Script
+        id={`breadcrumb-schema-${slug}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
       <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
@@ -209,6 +282,21 @@ export default async function CategoryPage({ params }: Props) {
         <SiteHeader />
 
         <div className="mx-auto max-w-6xl px-6 py-16">
+          <nav
+            aria-label="Breadcrumb"
+            className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/50"
+          >
+            <Link href="/" className="transition hover:text-white">
+              Home
+            </Link>
+            <span>/</span>
+            <Link href="/explore" className="transition hover:text-white">
+              Explore
+            </Link>
+            <span>/</span>
+            <span className="text-white/75">{category.label}</span>
+          </nav>
+
           <header className="mb-12">
             <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-sm text-cyan-200">
               Category
@@ -250,6 +338,42 @@ export default async function CategoryPage({ params }: Props) {
             </div>
           </header>
 
+          {featuredStartHere.length > 0 && (
+            <section className="mb-10 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
+              <div className="mb-6">
+                <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
+                  Start here
+                </div>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-4xl">
+                  Best first pages in {category.label}
+                </h2>
+                <p className="mt-4 max-w-3xl text-base leading-8 text-white/75">
+                  Start with these pages if you want the fastest path to understanding this topic properly.
+                </p>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                {featuredStartHere.map((item) => (
+                  <Link
+                    key={item.slug}
+                    href={`/explain/${item.slug}`}
+                    className="rounded-[24px] border border-white/10 bg-black/20 p-5 transition hover:bg-black/30"
+                  >
+                    <h3 className="text-lg font-semibold tracking-tight">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-6 text-white/60">
+                      {item.description}
+                    </p>
+                    <div className="mt-4 text-sm font-semibold text-cyan-300">
+                      Read first →
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
           <section className="rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
             <h2 className="text-2xl font-semibold tracking-tight">
               Why this category matters
@@ -278,28 +402,34 @@ export default async function CategoryPage({ params }: Props) {
               </Link>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {items.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/explain/${item.slug}`}
-                  className="group rounded-[28px] border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.07]"
-                >
-                  <div className="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/55">
-                    {item.category}
-                  </div>
-                  <h3 className="mt-4 text-2xl font-semibold tracking-tight">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-6 text-white/58">
-                    {item.description}
-                  </p>
-                  <div className="mt-6 text-sm font-semibold text-cyan-300 transition group-hover:text-cyan-200">
-                    Read explanation →
-                  </div>
-                </Link>
-              ))}
-            </div>
+            {items.length === 0 ? (
+              <div className="rounded-[24px] border border-white/10 bg-white/5 p-6 text-white/70">
+                This category is being expanded. Check back soon for more explainers.
+              </div>
+            ) : (
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {items.map((item) => (
+                  <Link
+                    key={item.slug}
+                    href={`/explain/${item.slug}`}
+                    className="group rounded-[28px] border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.07]"
+                  >
+                    <div className="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/55">
+                      {item.category}
+                    </div>
+                    <h3 className="mt-4 text-2xl font-semibold tracking-tight">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-6 text-white/58">
+                      {item.description}
+                    </p>
+                    <div className="mt-6 text-sm font-semibold text-cyan-300 transition group-hover:text-cyan-200">
+                      Read explanation →
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
           </section>
 
           <section className="mt-10 rounded-[28px] border border-cyan-300/20 bg-cyan-300/10 p-7 md:p-8">
@@ -355,6 +485,32 @@ export default async function CategoryPage({ params }: Props) {
                   Visit SimpleAIApp.com
                 </a>
               </div>
+            </div>
+          </section>
+
+          <section className="mt-10 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
+            <div className="mb-6">
+              <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
+                Next categories
+              </div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight">
+                Continue your learning path
+              </h2>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {category.nextCategories.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-[24px] border border-white/10 bg-black/20 p-5 transition hover:bg-black/30"
+                >
+                  <h3 className="text-lg font-semibold">{item.title}</h3>
+                  <div className="mt-3 text-sm font-semibold text-cyan-300">
+                    Explore category →
+                  </div>
+                </Link>
+              ))}
             </div>
           </section>
 
