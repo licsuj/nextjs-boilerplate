@@ -10,7 +10,7 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-function categoryToSlug(category: string): string {
+function categoryToSlug(category: string) {
   switch (category) {
     case "AI Basics":
       return "ai-basics";
@@ -25,20 +25,39 @@ function categoryToSlug(category: string): string {
   }
 }
 
-function buildFaq(explainer: (typeof explainers)[number]) {
-  const cleanTitle = explainer.title.replace(/\?$/, "");
+function buildFallbackFaq(explainer: (typeof explainers)[number]) {
+  const plainTitle = explainer.title.replace(/\?$/, "");
+
+  if (plainTitle.toLowerCase().startsWith("what is ")) {
+    const subject = plainTitle.replace(/^what is\s+/i, "");
+    return [
+      {
+        question: `What is ${subject} in simple terms?`,
+        answer: explainer.intro,
+      },
+      {
+        question: `Why does ${subject} matter in AI?`,
+        answer: explainer.whyItMatters,
+      },
+      {
+        question: `What should I read after learning about ${subject}?`,
+        answer:
+          "The best next step is to continue with related explainers, browse the category page, or join the newsletter to keep learning AI step by step.",
+      },
+    ];
+  }
 
   return [
     {
-      question: `${cleanTitle} in simple terms`,
+      question: `${plainTitle} in simple terms`,
       answer: explainer.intro,
     },
     {
-      question: `Why does ${cleanTitle} matter?`,
+      question: `Why does ${plainTitle} matter?`,
       answer: explainer.whyItMatters,
     },
     {
-      question: `What should I read after ${cleanTitle}?`,
+      question: `What should I read after ${plainTitle}?`,
       answer:
         "The best next step is to continue with related explainers, browse the category page, or join the newsletter to keep learning AI step by step.",
     },
@@ -92,7 +111,10 @@ export default async function ExplainerPage({ params }: Props) {
   );
 
   const categorySlug = categoryToSlug(explainer.category);
-  const faq = buildFaq(explainer);
+  const faq =
+    explainer.faq && explainer.faq.length > 0
+      ? explainer.faq
+      : buildFallbackFaq(explainer);
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -215,6 +237,37 @@ export default async function ExplainerPage({ params }: Props) {
             <p className="mt-4 text-base leading-8 text-white/75">
               {explainer.whyItMatters}
             </p>
+          </section>
+
+          <section className="mt-8 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
+            <div className="mb-6">
+              <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
+                Next learning step
+              </div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight">
+                Where to go from here
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-white/75">
+                Once you understand this topic, the best next move is to continue
+                through related explainers or return to the wider category to keep
+                building your understanding step by step.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                href={`/category/${categorySlug}`}
+                className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
+              >
+                Explore {explainer.category}
+              </Link>
+              <Link
+                href="/explore"
+                className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+              >
+                Browse all topics
+              </Link>
+            </div>
           </section>
 
           <section className="mt-8 rounded-[28px] border border-cyan-300/20 bg-cyan-300/10 p-7 md:p-8">
