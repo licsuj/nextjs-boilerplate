@@ -13,6 +13,10 @@ export type Explainer = {
   eli5: string[];
   whyItMatters: string;
   related: string[];
+  faq?: {
+    question: string;
+    answer: string;
+  }[];
 };
 
 export const explainers: Explainer[] = [
@@ -37,6 +41,23 @@ export const explainers: Explainer[] = [
       "what-is-prompt-engineering",
       "chatgpt-vs-claude",
     ],
+    faq: [
+      {
+        question: "What is ChatGPT in simple terms?",
+        answer:
+          "ChatGPT is an AI assistant that responds to your messages in natural language.",
+      },
+      {
+        question: "Why does ChatGPT matter?",
+        answer:
+          "ChatGPT is often the first AI product people use, so understanding it makes many other AI concepts easier to follow.",
+      },
+      {
+        question: "What should I learn after ChatGPT?",
+        answer:
+          "A good next step is to learn what an LLM is, how prompt engineering works, and how ChatGPT compares to other assistants.",
+      },
+    ],
   },
   {
     slug: "what-is-an-ai-agent",
@@ -55,6 +76,23 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "AI agents are becoming a common way to automate research, support, task management, and internal workflows.",
     related: ["what-is-rag", "what-is-mcp", "what-is-prompt-engineering"],
+    faq: [
+      {
+        question: "What is an AI agent in simple terms?",
+        answer:
+          "An AI agent is an AI system that can take actions and complete steps, not just answer questions.",
+      },
+      {
+        question: "What is the difference between an AI agent and a chatbot?",
+        answer:
+          "A chatbot mainly talks, while an AI agent can also decide, act, and use tools in a workflow.",
+      },
+      {
+        question: "What should I learn after AI agents?",
+        answer:
+          "A good next step is to learn about RAG, MCP, and AI automation.",
+      },
+    ],
   },
   {
     slug: "what-is-rag",
@@ -73,6 +111,23 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "RAG is one of the main ways businesses connect AI to internal knowledge, support content, and company documents.",
     related: ["what-is-an-ai-agent", "what-is-an-api", "what-is-mcp"],
+    faq: [
+      {
+        question: "What is RAG in simple terms?",
+        answer:
+          "RAG helps AI look up outside information before answering, instead of relying only on its internal knowledge.",
+      },
+      {
+        question: "Why does RAG matter?",
+        answer:
+          "RAG is one of the main ways companies make AI more useful, current, and grounded in real documents or data.",
+      },
+      {
+        question: "What should I learn after RAG?",
+        answer:
+          "The best next pages are MCP, AI agents, and vector databases.",
+      },
+    ],
   },
   {
     slug: "what-is-prompt-engineering",
@@ -95,6 +150,23 @@ export const explainers: Explainer[] = [
       "what-is-an-ai-agent",
       "what-is-a-system-prompt",
     ],
+    faq: [
+      {
+        question: "What is prompt engineering in simple terms?",
+        answer:
+          "Prompt engineering is the skill of writing better instructions so AI gives better results.",
+      },
+      {
+        question: "Why does prompt engineering matter?",
+        answer:
+          "Better prompts improve quality, save time, and make AI tools more useful in real work.",
+      },
+      {
+        question: "What should I learn after prompt engineering?",
+        answer:
+          "A good next step is to learn about system prompts, AI agents, and ChatGPT itself.",
+      },
+    ],
   },
   {
     slug: "what-is-an-api",
@@ -113,6 +185,23 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "APIs are how AI tools connect to databases, CRMs, SaaS tools, and other products. Without APIs, most useful automation would be harder to build.",
     related: ["what-is-rag", "what-is-mcp", "what-is-an-ai-agent"],
+    faq: [
+      {
+        question: "What is an API in simple terms?",
+        answer:
+          "An API is a structured way for one app or system to talk to another.",
+      },
+      {
+        question: "Why do APIs matter in AI?",
+        answer:
+          "APIs let AI tools connect to apps, systems, and external data.",
+      },
+      {
+        question: "What should I learn after APIs?",
+        answer:
+          "A good next step is to learn about MCP, RAG, and AI agents.",
+      },
+    ],
   },
   {
     slug: "what-is-an-llm",
@@ -135,6 +224,23 @@ export const explainers: Explainer[] = [
       "what-is-a-token-in-ai",
       "chatgpt-vs-gemini",
     ],
+    faq: [
+      {
+        question: "What is an LLM in simple terms?",
+        answer:
+          "An LLM is an AI model trained on a huge amount of text so it can understand and generate language.",
+      },
+      {
+        question: "Why do LLMs matter?",
+        answer:
+          "LLMs power many modern AI tools, including assistants like ChatGPT.",
+      },
+      {
+        question: "What should I learn after LLMs?",
+        answer:
+          "A good next step is to learn about tokens, context windows, and ChatGPT.",
+      },
+    ],
   },
   {
     slug: "what-is-a-token-in-ai",
@@ -153,6 +259,23 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "Tokens affect model limits, response length, speed, and pricing. They are one of the most important practical concepts in AI usage.",
     related: ["what-is-an-llm", "what-is-context-window", "what-is-chatgpt"],
+    faq: [
+      {
+        question: "What is a token in simple terms?",
+        answer:
+          "A token is a small chunk of text that an AI model processes.",
+      },
+      {
+        question: "Why do tokens matter?",
+        answer:
+          "Tokens affect model limits, prompt size, response length, and pricing.",
+      },
+      {
+        question: "What should I learn after tokens?",
+        answer:
+          "A good next step is to learn about context windows and LLMs.",
+      },
+    ],
   },
   {
     slug: "chatgpt-vs-claude",
@@ -207,5 +330,185 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "MCP is becoming a useful concept in AI workflows because it helps explain how assistants and agents connect to real systems.",
     related: ["what-is-an-api", "what-is-an-ai-agent", "what-is-rag"],
+  },
+  {
+    slug: "what-is-context-window",
+    title: "What is a context window?",
+    description:
+      "A simple explanation of context windows in AI and why long inputs sometimes still fail.",
+    category: "AI Basics",
+    intro:
+      "A context window is the amount of information an AI model can pay attention to at one time.",
+    eli5: [
+      "Think of it like the AI's working memory during one task or conversation.",
+      "A larger context window means more text can fit into that active space.",
+      "But fitting more information in does not automatically mean the model will use it perfectly.",
+      "It mainly affects how much text, history, or document content the model can handle at once.",
+    ],
+    whyItMatters:
+      "Context windows affect document analysis, long prompts, chat history, and many real-world AI workflows.",
+    related: ["what-is-a-token-in-ai", "what-is-an-llm", "what-is-chatgpt"],
+  },
+  {
+    slug: "what-is-a-system-prompt",
+    title: "What is a system prompt?",
+    description:
+      "A beginner-friendly explanation of system prompts and how they shape AI behavior.",
+    category: "AI Workflows",
+    intro:
+      "A system prompt is a higher-level instruction that tells an AI how to behave before the user starts chatting.",
+    eli5: [
+      "If the user prompt is the visible question, the system prompt is the hidden instruction layer.",
+      "It can set the AI's role, style, boundaries, or rules.",
+      "For example, it can tell the AI to explain simply, avoid unsafe advice, or answer in a certain format.",
+      "It helps make the assistant more consistent.",
+    ],
+    whyItMatters:
+      "System prompts are a core part of building useful and predictable AI assistants.",
+    related: ["what-is-prompt-engineering", "what-is-chatgpt", "what-is-an-ai-agent"],
+  },
+  {
+    slug: "what-is-fine-tuning",
+    title: "What is fine-tuning?",
+    description:
+      "A simple explanation of fine-tuning and when it is used instead of just prompting a model.",
+    category: "AI Workflows",
+    intro:
+      "Fine-tuning means taking an existing AI model and training it further so it performs better on a specific kind of task.",
+    eli5: [
+      "Instead of making a model from scratch, you start with one that already knows a lot.",
+      "Then you train it further with more focused examples.",
+      "That helps the model behave better for a narrow kind of job.",
+      "It is usually used when prompting alone is not enough.",
+    ],
+    whyItMatters:
+      "Fine-tuning matters when companies want more consistent behavior, formatting, or specialization from AI models.",
+    related: ["what-is-rag", "rag-vs-fine-tuning", "what-is-an-llm"],
+  },
+  {
+    slug: "what-is-an-embedding",
+    title: "What is an embedding?",
+    description:
+      "A plain-English explanation of embeddings and how AI turns meaning into numbers.",
+    category: "AI Tools",
+    intro:
+      "An embedding is a way of turning text or other data into numbers that capture meaning and similarity.",
+    eli5: [
+      "AI systems cannot store meaning the way humans describe it.",
+      "So they convert words, sentences, or documents into number patterns.",
+      "Items with similar meaning often end up closer together in that number space.",
+      "That helps systems search, compare, and group information more intelligently.",
+    ],
+    whyItMatters:
+      "Embeddings are a key part of semantic search, vector databases, recommendations, and RAG systems.",
+    related: ["what-is-a-vector-database", "what-is-rag", "what-is-an-api"],
+  },
+  {
+    slug: "what-is-a-vector-database",
+    title: "What is a vector database?",
+    description:
+      "A beginner-friendly explanation of vector databases and why they are used in AI search systems.",
+    category: "AI Tools",
+    intro:
+      "A vector database stores embeddings so AI systems can search for similar information quickly.",
+    eli5: [
+      "If embeddings turn meaning into numbers, a vector database stores and searches those numbers.",
+      "This helps the system find information that is semantically similar, not just exact word matches.",
+      "That is useful in search, retrieval, and recommendation systems.",
+      "It is one of the building blocks behind many RAG workflows.",
+    ],
+    whyItMatters:
+      "Vector databases help AI tools search internal knowledge and return more relevant information.",
+    related: ["what-is-an-embedding", "what-is-rag", "what-is-an-api"],
+  },
+  {
+    slug: "what-is-ai-automation",
+    title: "What is AI automation?",
+    description:
+      "A simple explanation of AI automation and how it differs from basic automation.",
+    category: "AI Workflows",
+    intro:
+      "AI automation means using AI inside a workflow so the system can handle more flexible tasks, not just fixed rules.",
+    eli5: [
+      "Basic automation follows strict rules.",
+      "AI automation adds flexible tasks like summarizing, classifying, extracting, or drafting.",
+      "That makes workflows more useful for messy, text-heavy, or less predictable tasks.",
+      "It is a major reason businesses are interested in AI today.",
+    ],
+    whyItMatters:
+      "AI automation is one of the biggest real-world AI use cases because it connects AI to everyday work.",
+    related: ["what-is-an-ai-agent", "what-is-rag", "what-is-an-api"],
+  },
+  {
+    slug: "what-is-inference-in-ai",
+    title: "What is inference in AI?",
+    description:
+      "A simple explanation of inference and what happens when an AI model actually produces an answer.",
+    category: "AI Tools",
+    intro:
+      "Inference is the moment when a trained AI model takes your input and generates an output.",
+    eli5: [
+      "Training is when the model learns from data.",
+      "Inference is when it uses that learning to answer a real prompt or perform a real task.",
+      "If you ask ChatGPT something and it responds, that output happens during inference.",
+      "It is basically the live-use stage of the model.",
+    ],
+    whyItMatters:
+      "Inference affects speed, cost, product experience, and how AI systems are deployed in real products.",
+    related: ["what-is-an-llm", "what-is-chatgpt", "what-is-a-token-in-ai"],
+  },
+  {
+    slug: "claude-vs-gemini",
+    title: "Claude vs Gemini",
+    description:
+      "A plain-English comparison of Claude and Gemini for people choosing between major AI assistants.",
+    category: "Comparisons",
+    intro:
+      "Claude and Gemini are both powerful AI assistants, but they differ in style, ecosystem, and how people use them in practice.",
+    eli5: [
+      "Both tools can answer questions, write, summarize, and explain.",
+      "The main differences usually appear in writing style, integrations, and workflow preference.",
+      "Some users prefer one for analysis, while others care more about ecosystem fit.",
+      "The best choice depends on how you actually use AI day to day.",
+    ],
+    whyItMatters:
+      "Comparison pages help users choose tools more realistically instead of just following trends.",
+    related: ["chatgpt-vs-claude", "chatgpt-vs-gemini", "what-is-chatgpt"],
+  },
+  {
+    slug: "ai-agent-vs-chatbot",
+    title: "AI agent vs chatbot",
+    description:
+      "A simple comparison of AI agents and chatbots so people can understand what makes agents different.",
+    category: "Comparisons",
+    intro:
+      "A chatbot mainly responds to messages, while an AI agent can often decide, act, and use tools inside a workflow.",
+    eli5: [
+      "A chatbot is mostly conversational.",
+      "An AI agent can take actions beyond conversation.",
+      "That makes agents feel more like assistants and chatbots feel more like message interfaces.",
+      "The line can blur, but the action layer is the key difference.",
+    ],
+    whyItMatters:
+      "This comparison helps people understand why AI agents are treated as a more advanced workflow concept.",
+    related: ["what-is-an-ai-agent", "what-is-ai-automation", "what-is-rag"],
+  },
+  {
+    slug: "rag-vs-fine-tuning",
+    title: "RAG vs fine-tuning",
+    description:
+      "A plain-English comparison of RAG and fine-tuning so people can understand when each one is used.",
+    category: "Comparisons",
+    intro:
+      "RAG and fine-tuning solve different problems. RAG helps AI use external information, while fine-tuning changes how a model behaves.",
+    eli5: [
+      "RAG is like giving the AI a better reference book.",
+      "Fine-tuning is like training the AI to behave differently on a specific kind of task.",
+      "One focuses on access to better information.",
+      "The other focuses on changing model behavior.",
+    ],
+    whyItMatters:
+      "This is one of the most useful workflow distinctions for understanding practical AI system design.",
+    related: ["what-is-rag", "what-is-fine-tuning", "what-is-an-llm"],
   },
 ];
