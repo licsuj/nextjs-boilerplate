@@ -281,11 +281,16 @@ export default function CategoryPage({ params }: Props) {
 
   const items = explainers.filter((item) => item.category === category.label);
 
-  const featuredStartHere = category.startHere
-    .map((featuredSlug) => explainers.find((item) => item.slug === featuredSlug))
-    .filter(
-      (item): item is (typeof explainers)[number] => item !== undefined
-    );
+  export const dynamicParams = false;
+
+  const featuredStartHere = category.startHere.reduce<(typeof explainers)[number][]>(
+    (acc, featuredSlug) => {
+      const found = explainers.find((item) => item.slug === featuredSlug);
+      if (found) acc.push(found);
+      return acc;
+    },
+    []
+  );
 
   const canonical = `https://www.eli5ai.co/category/${slug}`;
 
