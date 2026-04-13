@@ -10,6 +10,8 @@ type Props = {
   params: { slug: string };
 };
 
+export const dynamicParams = false;
+
 function categoryToSlug(category: string) {
   switch (category) {
     case "AI Basics":
@@ -69,12 +71,11 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const { slug } = params;
-  const explainer = explainers.find((item) => item.slug === slug);
+  const explainer = explainers.find((item) => item.slug === params.slug);
 
   if (!explainer) {
     return {
-      title: "Not found | ELI5AI.co",
+      title: "Not found",
       description: "This explainer could not be found.",
     };
   }
@@ -82,7 +83,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const canonical = `https://www.eli5ai.co/explain/${explainer.slug}`;
 
   return {
-    title: `${explainer.title} | ELI5AI.co`,
+    title: explainer.title,
     description: explainer.description,
     alternates: {
       canonical,
@@ -103,8 +104,7 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 export default function ExplainerPage({ params }: Props) {
-  const { slug } = params;
-  const explainer = explainers.find((item) => item.slug === slug);
+  const explainer = explainers.find((item) => item.slug === params.slug);
 
   if (!explainer) {
     notFound();
@@ -201,7 +201,6 @@ export default function ExplainerPage({ params }: Props) {
 
       <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
-
         <SiteHeader />
 
         <article className="mx-auto max-w-4xl px-6 py-16">
@@ -252,7 +251,6 @@ export default function ExplainerPage({ params }: Props) {
             <h2 className="text-2xl font-semibold tracking-tight">
               In simple terms
             </h2>
-
             <p className="mt-4 text-base leading-8 text-white/75">
               {explainer.intro}
             </p>
@@ -270,72 +268,9 @@ export default function ExplainerPage({ params }: Props) {
             <h2 className="text-2xl font-semibold tracking-tight">
               Why it matters
             </h2>
-
             <p className="mt-4 text-base leading-8 text-white/75">
               {explainer.whyItMatters}
             </p>
-          </section>
-
-          <section className="mt-8 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
-            <div className="mb-6">
-              <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
-                Next learning step
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight">
-                Where to go from here
-              </h2>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-white/75">
-                Once you understand this topic, the best next move is to
-                continue through related explainers or return to the wider
-                category to keep building your understanding step by step.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href={`/category/${categorySlug}`}
-                className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
-              >
-                Explore {explainer.category}
-              </Link>
-              <Link
-                href="/explore"
-                className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
-              >
-                Browse all topics
-              </Link>
-            </div>
-          </section>
-
-          <section className="mt-8 rounded-[28px] border border-cyan-300/20 bg-cyan-300/10 p-7 md:p-8">
-            <div className="max-w-2xl">
-              <div className="text-sm uppercase tracking-[0.24em] text-cyan-200/85">
-                Newsletter
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
-                Keep learning AI the simple way
-              </h2>
-              <p className="mt-4 text-base leading-7 text-white/78">
-                Get one clear AI explanation every week, plus practical guides
-                on tools, prompts, workflows, agents, and the ideas people hear
-                about but rarely understand properly.
-              </p>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/newsletter"
-                  className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
-                >
-                  Join the newsletter
-                </Link>
-                <Link
-                  href="/start-here"
-                  className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
-                >
-                  Follow the beginner path
-                </Link>
-              </div>
-            </div>
           </section>
 
           {relatedPages.length > 0 && (
