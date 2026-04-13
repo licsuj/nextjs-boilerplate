@@ -6,6 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://eli5ai.co/sitemap.xml",
+    sitemap: "https://www.eli5ai.co/sitemap.xml",
+    host: "https://www.eli5ai.co",
   };
 }
