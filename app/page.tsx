@@ -9,13 +9,13 @@ export const metadata: Metadata = {
   description:
     "Learn AI in plain English. Simple explanations of ChatGPT, AI agents, RAG, prompts, APIs, automation, and more.",
   alternates: {
-    canonical: "https://eli5ai.co",
+    canonical: "https://www.eli5ai.co",
   },
   openGraph: {
     title: "ELI5AI.co | AI explained simply",
     description:
       "Simple AI explanations for beginners and professionals. Learn ChatGPT, AI agents, RAG, prompts, APIs, and automation in plain English.",
-    url: "https://eli5ai.co",
+    url: "https://www.eli5ai.co",
     siteName: "ELI5AI.co",
     type: "website",
   },
