@@ -280,9 +280,12 @@ export default function CategoryPage({ params }: Props) {
   }
 
   const items = explainers.filter((item) => item.category === category.label);
+
   const featuredStartHere = category.startHere
     .map((featuredSlug) => explainers.find((item) => item.slug === featuredSlug))
-    .filter(Boolean);
+    .filter(
+      (item): item is (typeof explainers)[number] => item !== undefined
+    );
 
   const canonical = `https://www.eli5ai.co/category/${slug}`;
 
