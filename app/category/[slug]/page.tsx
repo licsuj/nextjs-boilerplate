@@ -6,6 +6,7 @@ import { explainers, type ExplainerCategory } from "@/lib/explainers";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
+
 type Props = {
   params: { slug: string };
 };
@@ -280,9 +281,7 @@ export default function CategoryPage({ params }: Props) {
   }
 
   const items = explainers.filter((item) => item.category === category.label);
-
-  export const dynamicParams = false;
-
+  
   const featuredStartHere = category.startHere.reduce<(typeof explainers)[number][]>(
     (acc, featuredSlug) => {
       const found = explainers.find((item) => item.slug === featuredSlug);
