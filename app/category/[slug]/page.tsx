@@ -7,12 +7,29 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
+};
+
+type CategoryPageConfig = {
+  label: ExplainerCategory;
+  title: string;
+  description: string;
+  intro: string;
+  whyMatters: string;
+  startHere: readonly string[];
+  nextCategories: readonly {
+    title: string;
+    href: string;
+  }[];
+  faq: readonly {
+    question: string;
+    answer: string;
+  }[];
 };
 
 const categoryConfig = {
   "ai-basics": {
-    label: "AI Basics" as ExplainerCategory,
+    label: "AI Basics",
     title: "AI Basics explained simply",
     description:
       "Learn the core AI terms and concepts in plain English, including ChatGPT, LLMs, tokens, prompts, context windows, and more.",
@@ -49,7 +66,7 @@ const categoryConfig = {
     ],
   },
   "ai-tools": {
-    label: "AI Tools" as ExplainerCategory,
+    label: "AI Tools",
     title: "AI Tools explained simply",
     description:
       "Understand popular AI tools and technical building blocks in plain English, including APIs, embeddings, vector databases, copilots, and more.",
@@ -86,7 +103,7 @@ const categoryConfig = {
     ],
   },
   "ai-workflows": {
-    label: "AI Workflows" as ExplainerCategory,
+    label: "AI Workflows",
     title: "AI Workflows explained simply",
     description:
       "Learn how AI fits into real workflows through simple explanations of RAG, automation, agents, orchestration, fine-tuning, MCP, and more.",
@@ -123,7 +140,7 @@ const categoryConfig = {
     ],
   },
   "ai-comparisons": {
-    label: "Comparisons" as ExplainerCategory,
+    label: "Comparisons",
     title: "AI Comparisons explained simply",
     description:
       "Compare popular AI tools and concepts in plain English so you can understand the differences without hype or jargon.",
@@ -159,10 +176,10 @@ const categoryConfig = {
       },
     ],
   },
-} as const;
+} satisfies Record<string, CategoryPageConfig>;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug } = params;
   const category = categoryConfig[slug as keyof typeof categoryConfig];
 
   if (!category) {
@@ -193,15 +210,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return Object.keys(categoryConfig).map((slug) => ({ slug }));
 }
 
-export default async function CategoryPage({ params }: Props) {
-  const { slug } = await params;
+export default function CategoryPage({ params }: Props) {
+  const { slug } = params;
   const category = categoryConfig[slug as keyof typeof categoryConfig];
 
-  if (!category) notFound();
+  if (!category) {
+    notFound();
+  }
 
   const items = explainers.filter((item) => item.category === category.label);
   const featuredStartHere = explainers.filter((item) =>
@@ -348,7 +367,8 @@ export default async function CategoryPage({ params }: Props) {
                   Best first pages in {category.label}
                 </h2>
                 <p className="mt-4 max-w-3xl text-base leading-8 text-white/75">
-                  Start with these pages if you want the fastest path to understanding this topic properly.
+                  Start with these pages if you want the fastest path to
+                  understanding this topic properly.
                 </p>
               </div>
 
@@ -404,7 +424,8 @@ export default async function CategoryPage({ params }: Props) {
 
             {items.length === 0 ? (
               <div className="rounded-[24px] border border-white/10 bg-white/5 p-6 text-white/70">
-                This category is being expanded. Check back soon for more explainers.
+                This category is being expanded. Check back soon for more
+                explainers.
               </div>
             ) : (
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -441,8 +462,9 @@ export default async function CategoryPage({ params }: Props) {
                 Learn AI one clear concept at a time
               </h2>
               <p className="mt-4 text-base leading-7 text-white/78">
-                Join the ELI5AI newsletter for simple AI explanations, useful comparisons,
-                and practical AI learning paths that actually help you understand the topic.
+                Join the ELI5AI newsletter for simple AI explanations, useful
+                comparisons, and practical AI learning paths that actually help
+                you understand the topic.
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -471,8 +493,9 @@ export default async function CategoryPage({ params }: Props) {
                 Want practical AI resources, not just explanations?
               </h2>
               <p className="mt-4 text-base leading-7 text-white/78">
-                Visit SimpleAIApp.com for beginner-friendly AI tools, workflow packs,
-                and practical resources that help turn understanding into action.
+                Visit SimpleAIApp.com for beginner-friendly AI tools, workflow
+                packs, and practical resources that help turn understanding into
+                action.
               </p>
 
               <div className="mt-6">
