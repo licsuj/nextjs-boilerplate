@@ -10,8 +10,6 @@ type Props = {
   params: { slug: string };
 };
 
-export const dynamicParams = false;
-
 function categoryToSlug(category: string) {
   switch (category) {
     case "AI Basics":
