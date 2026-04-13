@@ -39,7 +39,7 @@ const featuredExplainers = [
     title: "What is an AI agent?",
     blurb: "The difference between a chatbot and an AI agent, explained simply.",
     href: "/explain/what-is-an-ai-agent",
-    category: "AI Basics",
+    category: "AI Workflows",
   },
   {
     title: "What is RAG?",
