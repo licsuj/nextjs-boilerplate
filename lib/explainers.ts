@@ -17,6 +17,11 @@ export type Explainer = {
     question: string;
     answer: string;
   }[];
+  searchIntent?: "definition" | "comparison" | "workflow" | "tool";
+  primaryKeyword?: string;
+  secondaryKeywords?: string[];
+  publishedAt?: string;
+  updatedAt?: string;
 };
 
 export const explainers: Explainer[] = [
@@ -58,13 +63,18 @@ export const explainers: Explainer[] = [
           "A good next step is to learn what an LLM is, how prompt engineering works, and how ChatGPT compares to other assistants.",
       },
     ],
+    searchIntent: "definition",
+    primaryKeyword: "what is chatgpt",
+    secondaryKeywords: ["chatgpt explained", "chatgpt meaning", "how chatgpt works"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-an-ai-agent",
     title: "What is an AI agent?",
     description:
       "A plain-English explanation of what an AI agent is and how it differs from a normal chatbot.",
-    category: "AI Basics",
+    category: "AI Workflows",
     intro:
       "An AI agent is an AI system that can take steps to complete tasks, not just reply to messages.",
     eli5: [
@@ -93,6 +103,11 @@ export const explainers: Explainer[] = [
           "A good next step is to learn about RAG, MCP, and AI automation.",
       },
     ],
+    searchIntent: "workflow",
+    primaryKeyword: "what is an ai agent",
+    secondaryKeywords: ["ai agent meaning", "ai agent explained", "ai agent vs chatbot"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-rag",
@@ -128,6 +143,11 @@ export const explainers: Explainer[] = [
           "The best next pages are MCP, AI agents, and vector databases.",
       },
     ],
+    searchIntent: "workflow",
+    primaryKeyword: "what is rag",
+    secondaryKeywords: ["retrieval augmented generation explained", "rag ai meaning"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-prompt-engineering",
@@ -167,6 +187,11 @@ export const explainers: Explainer[] = [
           "A good next step is to learn about system prompts, AI agents, and ChatGPT itself.",
       },
     ],
+    searchIntent: "definition",
+    primaryKeyword: "what is prompt engineering",
+    secondaryKeywords: ["prompt engineering explained", "prompt engineering meaning"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-an-api",
@@ -202,6 +227,11 @@ export const explainers: Explainer[] = [
           "A good next step is to learn about MCP, RAG, and AI agents.",
       },
     ],
+    searchIntent: "tool",
+    primaryKeyword: "what is an api",
+    secondaryKeywords: ["api explained", "api meaning for beginners"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-an-llm",
@@ -241,6 +271,11 @@ export const explainers: Explainer[] = [
           "A good next step is to learn about tokens, context windows, and ChatGPT.",
       },
     ],
+    searchIntent: "definition",
+    primaryKeyword: "what is an llm",
+    secondaryKeywords: ["llm explained", "large language model meaning"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-a-token-in-ai",
@@ -276,6 +311,11 @@ export const explainers: Explainer[] = [
           "A good next step is to learn about context windows and LLMs.",
       },
     ],
+    searchIntent: "definition",
+    primaryKeyword: "what is a token in ai",
+    secondaryKeywords: ["ai token meaning", "tokens in llms explained"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "chatgpt-vs-claude",
@@ -294,6 +334,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "Comparison pages help people choose the right AI tool instead of just following hype.",
     related: ["chatgpt-vs-gemini", "what-is-chatgpt", "what-is-an-llm"],
+    searchIntent: "comparison",
+    primaryKeyword: "chatgpt vs claude",
+    secondaryKeywords: ["claude vs chatgpt", "chatgpt or claude"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "chatgpt-vs-gemini",
@@ -312,6 +357,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "People searching comparisons usually have buying or usage intent, which makes these pages valuable for both SEO and monetization.",
     related: ["chatgpt-vs-claude", "what-is-chatgpt", "what-is-an-llm"],
+    searchIntent: "comparison",
+    primaryKeyword: "chatgpt vs gemini",
+    secondaryKeywords: ["gemini vs chatgpt", "chatgpt or gemini"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-mcp",
@@ -330,6 +380,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "MCP is becoming a useful concept in AI workflows because it helps explain how assistants and agents connect to real systems.",
     related: ["what-is-an-api", "what-is-an-ai-agent", "what-is-rag"],
+    searchIntent: "workflow",
+    primaryKeyword: "what is mcp",
+    secondaryKeywords: ["model context protocol explained", "mcp in ai"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-context-window",
@@ -348,6 +403,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "Context windows affect document analysis, long prompts, chat history, and many real-world AI workflows.",
     related: ["what-is-a-token-in-ai", "what-is-an-llm", "what-is-chatgpt"],
+    searchIntent: "definition",
+    primaryKeyword: "what is a context window",
+    secondaryKeywords: ["context window explained", "ai context window meaning"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-a-system-prompt",
@@ -366,6 +426,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "System prompts are a core part of building useful and predictable AI assistants.",
     related: ["what-is-prompt-engineering", "what-is-chatgpt", "what-is-an-ai-agent"],
+    searchIntent: "workflow",
+    primaryKeyword: "what is a system prompt",
+    secondaryKeywords: ["system prompt explained", "system prompt meaning"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-fine-tuning",
@@ -384,6 +449,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "Fine-tuning matters when companies want more consistent behavior, formatting, or specialization from AI models.",
     related: ["what-is-rag", "rag-vs-fine-tuning", "what-is-an-llm"],
+    searchIntent: "workflow",
+    primaryKeyword: "what is fine tuning",
+    secondaryKeywords: ["fine tuning explained", "fine tuning in ai"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-an-embedding",
@@ -402,6 +472,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "Embeddings are a key part of semantic search, vector databases, recommendations, and RAG systems.",
     related: ["what-is-a-vector-database", "what-is-rag", "what-is-an-api"],
+    searchIntent: "tool",
+    primaryKeyword: "what is an embedding",
+    secondaryKeywords: ["embedding explained", "embeddings in ai"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-a-vector-database",
@@ -420,6 +495,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "Vector databases help AI tools search internal knowledge and return more relevant information.",
     related: ["what-is-an-embedding", "what-is-rag", "what-is-an-api"],
+    searchIntent: "tool",
+    primaryKeyword: "what is a vector database",
+    secondaryKeywords: ["vector database explained", "vector db meaning"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-ai-automation",
@@ -438,6 +518,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "AI automation is one of the biggest real-world AI use cases because it connects AI to everyday work.",
     related: ["what-is-an-ai-agent", "what-is-rag", "what-is-an-api"],
+    searchIntent: "workflow",
+    primaryKeyword: "what is ai automation",
+    secondaryKeywords: ["ai automation explained", "ai workflow automation"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "what-is-inference-in-ai",
@@ -456,6 +541,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "Inference affects speed, cost, product experience, and how AI systems are deployed in real products.",
     related: ["what-is-an-llm", "what-is-chatgpt", "what-is-a-token-in-ai"],
+    searchIntent: "tool",
+    primaryKeyword: "what is inference in ai",
+    secondaryKeywords: ["ai inference explained", "inference meaning ai"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "claude-vs-gemini",
@@ -474,6 +564,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "Comparison pages help users choose tools more realistically instead of just following trends.",
     related: ["chatgpt-vs-claude", "chatgpt-vs-gemini", "what-is-chatgpt"],
+    searchIntent: "comparison",
+    primaryKeyword: "claude vs gemini",
+    secondaryKeywords: ["gemini vs claude", "claude or gemini"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "ai-agent-vs-chatbot",
@@ -492,6 +587,11 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "This comparison helps people understand why AI agents are treated as a more advanced workflow concept.",
     related: ["what-is-an-ai-agent", "what-is-ai-automation", "what-is-rag"],
+    searchIntent: "comparison",
+    primaryKeyword: "ai agent vs chatbot",
+    secondaryKeywords: ["chatbot vs ai agent", "difference between ai agent and chatbot"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
   {
     slug: "rag-vs-fine-tuning",
@@ -510,5 +610,10 @@ export const explainers: Explainer[] = [
     whyItMatters:
       "This is one of the most useful workflow distinctions for understanding practical AI system design.",
     related: ["what-is-rag", "what-is-fine-tuning", "what-is-an-llm"],
+    searchIntent: "comparison",
+    primaryKeyword: "rag vs fine tuning",
+    secondaryKeywords: ["fine tuning vs rag", "rag or fine tuning"],
+    publishedAt: "2026-04-14",
+    updatedAt: "2026-04-14",
   },
 ];
