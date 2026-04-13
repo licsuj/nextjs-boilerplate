@@ -1,28 +1,31 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
+const pageUrl = "https://www.eli5ai.co/newsletter";
+
 export const metadata: Metadata = {
-  title: "Newsletter",
+  title: "AI newsletter for beginners | One clear AI explanation every week",
   description:
-    "Subscribe to the ELI5AI newsletter and get one clear AI explanation every week.",
+    "Subscribe to the ELI5AI newsletter and get one clear AI explanation every week in plain English.",
   alternates: {
-    canonical: "https://eli5ai.co/newsletter",
+    canonical: pageUrl,
   },
   openGraph: {
-    title: "ELI5AI Newsletter",
+    title: "AI newsletter for beginners | One clear AI explanation every week",
     description:
-      "Subscribe to the ELI5AI newsletter and get one clear AI explanation every week.",
-    url: "https://eli5ai.co/newsletter",
+      "Subscribe to the ELI5AI newsletter and get one clear AI explanation every week in plain English.",
+    url: pageUrl,
     siteName: "ELI5AI.co",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ELI5AI Newsletter",
+    title: "AI newsletter for beginners | One clear AI explanation every week",
     description:
-      "Subscribe to the ELI5AI newsletter and get one clear AI explanation every week.",
+      "Subscribe to the ELI5AI newsletter and get one clear AI explanation every week in plain English.",
   },
 };
 
@@ -49,8 +52,46 @@ const topics = [
 ];
 
 export default function NewsletterPage() {
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "AI newsletter for beginners",
+    description:
+      "Subscribe to the ELI5AI newsletter and get one clear AI explanation every week in plain English.",
+    url: pageUrl,
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.eli5ai.co",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Newsletter",
+        item: pageUrl,
+      },
+    ],
+  };
+
   return (
     <>
+      <Script
+        id="newsletter-page-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <Script
+        id="newsletter-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Script
         src="https://subscribe-forms.beehiiv.com/embed.js"
         strategy="afterInteractive"
@@ -62,6 +103,17 @@ export default function NewsletterPage() {
         <SiteHeader />
 
         <div className="mx-auto max-w-6xl px-6 py-16">
+          <nav
+            aria-label="Breadcrumb"
+            className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/50"
+          >
+            <Link href="/" className="transition hover:text-white">
+              Home
+            </Link>
+            <span>/</span>
+            <span className="text-white/75">Newsletter</span>
+          </nav>
+
           <div className="grid gap-10 md:grid-cols-[1fr_0.95fr] md:items-start">
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
@@ -71,9 +123,9 @@ export default function NewsletterPage() {
                 Get one clear AI explanation every week
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-white/68">
-                The ELI5AI newsletter helps you understand AI step by step through
-                short, useful explanations that are easy to read and actually make
-                sense.
+                The ELI5AI newsletter helps you understand AI step by step
+                through short, useful explanations that are easy to read and
+                actually make sense.
               </p>
 
               <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -137,9 +189,9 @@ export default function NewsletterPage() {
               <div className="mt-6 rounded-[20px] border border-white/10 bg-black/20 p-5">
                 <h3 className="text-lg font-semibold">Why subscribe now?</h3>
                 <p className="mt-3 text-sm leading-6 text-white/65">
-                  Most people are hearing AI terms everywhere but still do not feel
-                  like they truly understand them. This newsletter helps close that
-                  gap one concept at a time.
+                  Most people are hearing AI terms everywhere but still do not
+                  feel like they truly understand them. This newsletter helps
+                  close that gap one concept at a time.
                 </p>
               </div>
             </div>
