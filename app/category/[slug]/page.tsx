@@ -16,6 +16,9 @@ type CategoryPageConfig = {
   description: string;
   intro: string;
   whyMatters: string;
+  whatYouWillLearn: readonly string[];
+  whoItsFor: string;
+  commonMistakes: readonly string[];
   startHere: readonly string[];
   nextCategories: readonly {
     title: string;
@@ -37,6 +40,19 @@ const categoryConfig = {
       "This category is the best place to start if you want to understand AI properly. It covers the core terms, concepts, and building blocks that appear again and again in AI tools and conversations.",
     whyMatters:
       "Most people struggle with AI because they jump into tools before understanding the foundations. These pages help you build that base first.",
+    whatYouWillLearn: [
+      "How tools like ChatGPT are connected to LLMs and prompts",
+      "Why tokens and context windows affect what AI can do",
+      "Which beginner AI concepts matter most in practice",
+      "How core ideas fit together before you move into tools and workflows",
+    ],
+    whoItsFor:
+      "This category is ideal for complete beginners, curious professionals, and anyone who wants to understand AI fundamentals before going deeper.",
+    commonMistakes: [
+      "Jumping straight into tools without understanding the basics",
+      "Confusing hype terms with actual concepts",
+      "Assuming AI understands text exactly like a human does",
+    ],
     startHere: [
       "what-is-chatgpt",
       "what-is-an-llm",
@@ -74,6 +90,19 @@ const categoryConfig = {
       "This category explains the tools, components, and systems people hear about when using or building with AI. It is for understanding what the tools actually do and how they connect.",
     whyMatters:
       "People often use AI tools without really understanding what sits underneath them. These explainers help bridge that gap.",
+    whatYouWillLearn: [
+      "How AI tools connect to apps, data, and systems",
+      "What embeddings and vector databases do",
+      "What inference means when a model generates output",
+      "Which tool concepts matter most in real AI products",
+    ],
+    whoItsFor:
+      "This category is for readers who already know the basics and want to understand how AI tools and technical building blocks work in plain English.",
+    commonMistakes: [
+      "Treating every AI product like it works the same way",
+      "Using technical terms without understanding their role",
+      "Confusing tools, models, and workflows as if they were the same thing",
+    ],
     startHere: [
       "what-is-an-api",
       "what-is-an-embedding",
@@ -106,11 +135,24 @@ const categoryConfig = {
     label: "AI Workflows",
     title: "AI Workflows explained simply",
     description:
-      "Learn how AI fits into real workflows through simple explanations of RAG, automation, agents, orchestration, fine-tuning, MCP, and more.",
+      "Learn how AI fits into real workflows through simple explanations of RAG, AI agents, automation, system prompts, fine-tuning, MCP, and more.",
     intro:
       "This category focuses on how AI works in practice. Instead of just defining tools, it explains how different pieces come together in useful real-world workflows.",
     whyMatters:
       "This is where AI becomes practical. Once you understand workflows, you start to see how AI can support research, support, writing, automation, and internal systems.",
+    whatYouWillLearn: [
+      "How RAG helps AI use external information",
+      "How agents, automation, and system prompts fit into workflows",
+      "Where MCP and fine-tuning sit in practical AI systems",
+      "Why workflow design matters as much as the model itself",
+    ],
+    whoItsFor:
+      "This category is for readers who want to move beyond definitions and understand how AI is actually used in products, teams, and business operations.",
+    commonMistakes: [
+      "Assuming the model alone is the whole system",
+      "Using terms like agent, RAG, and automation interchangeably",
+      "Ignoring workflow design and focusing only on prompts",
+    ],
     startHere: [
       "what-is-rag",
       "what-is-an-ai-agent",
@@ -148,6 +190,19 @@ const categoryConfig = {
       "This category helps you compare AI tools and concepts side by side in a way that is simple, practical, and easy to follow.",
     whyMatters:
       "Comparison pages are where many people make decisions. They help users choose the right AI tool or understand the difference between similar concepts.",
+    whatYouWillLearn: [
+      "How major AI assistants differ in practice",
+      "When two AI concepts are actually solving different problems",
+      "Which comparison questions matter most before choosing a tool",
+      "How to think more clearly about tradeoffs instead of hype",
+    ],
+    whoItsFor:
+      "This category is for people trying to choose between tools, understand tradeoffs, or compare similar AI concepts without getting lost in marketing language.",
+    commonMistakes: [
+      "Looking for one universal winner instead of the best fit",
+      "Comparing tools without knowing the task or workflow",
+      "Treating related concepts like they are interchangeable",
+    ],
     startHere: [
       "chatgpt-vs-claude",
       "chatgpt-vs-gemini",
@@ -178,27 +233,33 @@ const categoryConfig = {
   },
 } satisfies Record<string, CategoryPageConfig>;
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export function generateStaticParams() {
+  return Object.keys(categoryConfig).map((slug) => ({ slug }));
+}
+
+export function generateMetadata({ params }: Props): Metadata {
   const { slug } = params;
   const category = categoryConfig[slug as keyof typeof categoryConfig];
 
   if (!category) {
     return {
-      title: "Category not found",
+      title: "Category not found | ELI5AI.co",
       description: "This category could not be found.",
     };
   }
 
+  const canonical = `https://www.eli5ai.co/category/${slug}`;
+
   return {
-    title: category.title,
+    title: `${category.title} | ELI5AI.co`,
     description: category.description,
     alternates: {
-      canonical: `https://eli5ai.co/category/${slug}`,
+      canonical,
     },
     openGraph: {
       title: `${category.title} | ELI5AI.co`,
       description: category.description,
-      url: `https://eli5ai.co/category/${slug}`,
+      url: canonical,
       siteName: "ELI5AI.co",
       type: "website",
     },
@@ -210,10 +271,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export function generateStaticParams() {
-  return Object.keys(categoryConfig).map((slug) => ({ slug }));
-}
-
 export default function CategoryPage({ params }: Props) {
   const { slug } = params;
   const category = categoryConfig[slug as keyof typeof categoryConfig];
@@ -223,9 +280,11 @@ export default function CategoryPage({ params }: Props) {
   }
 
   const items = explainers.filter((item) => item.category === category.label);
-  const featuredStartHere = explainers.filter((item) =>
-    category.startHere.includes(item.slug)
-  );
+  const featuredStartHere = category.startHere
+    .map((featuredSlug) => explainers.find((item) => item.slug === featuredSlug))
+    .filter(Boolean);
+
+  const canonical = `https://www.eli5ai.co/category/${slug}`;
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -247,9 +306,17 @@ export default function CategoryPage({ params }: Props) {
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: `https://eli5ai.co/explain/${item.slug}`,
+      url: `https://www.eli5ai.co/explain/${item.slug}`,
       name: item.title,
     })),
+  };
+
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: category.title,
+    description: category.description,
+    url: canonical,
   };
 
   const breadcrumbSchema = {
@@ -260,25 +327,32 @@ export default function CategoryPage({ params }: Props) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://eli5ai.co",
+        item: "https://www.eli5ai.co",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Explore",
-        item: "https://eli5ai.co/explore",
+        item: "https://www.eli5ai.co/explore",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: category.label,
-        item: `https://eli5ai.co/category/${slug}`,
+        item: canonical,
       },
     ],
   };
 
   return (
     <>
+      <Script
+        id={`category-schema-${slug}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(collectionPageSchema),
+        }}
+      />
       <Script
         id={`faq-schema-${slug}`}
         type="application/ld+json"
@@ -348,14 +422,53 @@ export default function CategoryPage({ params }: Props) {
               </div>
               <div className="rounded-[24px] border border-white/10 bg-white/5 p-5">
                 <div className="text-2xl font-semibold tracking-tight">
-                  Built to connect
+                  Structured learning
                 </div>
                 <div className="mt-1 text-sm text-white/55">
-                  Each page links to the next step
+                  Start simple and go deeper
                 </div>
               </div>
             </div>
           </header>
+
+          <section className="mb-10 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
+            <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+              <div>
+                <h2 className="text-2xl font-semibold tracking-tight">
+                  What you will learn in {category.label}
+                </h2>
+                <div className="mt-4 space-y-4 text-base leading-8 text-white/75">
+                  <p>{category.whyMatters}</p>
+                  <p>{category.whoItsFor}</p>
+                </div>
+
+                <div className="mt-6 grid gap-3">
+                  {category.whatYouWillLearn.map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm leading-6 text-white/72"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold">Common mistakes</h3>
+                <div className="mt-4 space-y-3">
+                  {category.commonMistakes.map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm leading-6 text-white/68"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
 
           {featuredStartHere.length > 0 && (
             <section className="mb-10 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
@@ -393,15 +506,6 @@ export default function CategoryPage({ params }: Props) {
               </div>
             </section>
           )}
-
-          <section className="rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
-            <h2 className="text-2xl font-semibold tracking-tight">
-              Why this category matters
-            </h2>
-            <p className="mt-4 max-w-3xl text-base leading-8 text-white/75">
-              {category.whyMatters}
-            </p>
-          </section>
 
           <section className="mt-10">
             <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
@@ -453,64 +557,6 @@ export default function CategoryPage({ params }: Props) {
             )}
           </section>
 
-          <section className="mt-10 rounded-[28px] border border-cyan-300/20 bg-cyan-300/10 p-7 md:p-8">
-            <div className="max-w-2xl">
-              <div className="text-sm uppercase tracking-[0.24em] text-cyan-200/85">
-                Newsletter
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
-                Learn AI one clear concept at a time
-              </h2>
-              <p className="mt-4 text-base leading-7 text-white/78">
-                Join the ELI5AI newsletter for simple AI explanations, useful
-                comparisons, and practical AI learning paths that actually help
-                you understand the topic.
-              </p>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/newsletter"
-                  className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
-                >
-                  Join the newsletter
-                </Link>
-                <Link
-                  href="/about"
-                  className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
-                >
-                  About ELI5AI
-                </Link>
-              </div>
-            </div>
-          </section>
-
-          <section className="mt-10 rounded-[28px] border border-violet-300/20 bg-violet-300/10 p-7 md:p-8">
-            <div className="max-w-2xl">
-              <div className="text-sm uppercase tracking-[0.24em] text-violet-200/85">
-                Next step
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
-                Want practical AI resources, not just explanations?
-              </h2>
-              <p className="mt-4 text-base leading-7 text-white/78">
-                Visit SimpleAIApp.com for beginner-friendly AI tools, workflow
-                packs, and practical resources that help turn understanding into
-                action.
-              </p>
-
-              <div className="mt-6">
-                <a
-                  href="https://simpleaiapp.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-white/90"
-                >
-                  Visit SimpleAIApp.com
-                </a>
-              </div>
-            </div>
-          </section>
-
           <section className="mt-10 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
             <div className="mb-6">
               <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
@@ -534,6 +580,37 @@ export default function CategoryPage({ params }: Props) {
                   </div>
                 </Link>
               ))}
+            </div>
+          </section>
+
+          <section className="mt-10 rounded-[28px] border border-cyan-300/20 bg-cyan-300/10 p-7 md:p-8">
+            <div className="max-w-2xl">
+              <div className="text-sm uppercase tracking-[0.24em] text-cyan-200/85">
+                Newsletter
+              </div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
+                Keep learning AI one clear concept at a time
+              </h2>
+              <p className="mt-4 text-base leading-7 text-white/78">
+                Join the ELI5AI newsletter for plain-English AI explanations,
+                useful comparisons, and practical learning paths delivered one
+                step at a time.
+              </p>
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/newsletter"
+                  className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
+                >
+                  Join the newsletter
+                </Link>
+                <Link
+                  href="/start-here"
+                  className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+                >
+                  Follow the beginner path
+                </Link>
+              </div>
             </div>
           </section>
 
