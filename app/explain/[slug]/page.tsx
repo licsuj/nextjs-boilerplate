@@ -6,6 +6,8 @@ import { explainers } from "@/lib/explainers";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
+export const dynamicParams = false;
+
 type Props = {
   params: { slug: string };
 };
