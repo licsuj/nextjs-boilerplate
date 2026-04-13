@@ -5,20 +5,31 @@ import { explainers } from "@/lib/explainers";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
+const pageUrl = "https://www.eli5ai.co/explore";
+
 export const metadata: Metadata = {
-  title: "Explore AI topics",
+  title:
+    "Explore AI topics | Simple guides to ChatGPT, RAG, prompts, agents, APIs",
   description:
-    "Browse simple AI explanations covering ChatGPT, AI agents, prompts, RAG, APIs, automation, comparisons, and more.",
+    "Browse simple AI explanations covering ChatGPT, LLMs, AI agents, prompts, RAG, APIs, automation, comparisons, and more.",
   alternates: {
-    canonical: "https://eli5ai.co/explore",
+    canonical: pageUrl,
   },
   openGraph: {
-    title: "Explore AI topics | ELI5AI.co",
+    title:
+      "Explore AI topics | Simple guides to ChatGPT, RAG, prompts, agents, APIs",
     description:
-      "Browse simple AI explanations covering ChatGPT, AI agents, prompts, RAG, APIs, automation, comparisons, and more.",
-    url: "https://eli5ai.co/explore",
+      "Browse simple AI explanations covering ChatGPT, LLMs, AI agents, prompts, RAG, APIs, automation, comparisons, and more.",
+    url: pageUrl,
     siteName: "ELI5AI.co",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Explore AI topics | Simple guides to ChatGPT, RAG, prompts, agents, APIs",
+    description:
+      "Browse simple AI explanations covering ChatGPT, LLMs, AI agents, prompts, RAG, APIs, automation, comparisons, and more.",
   },
 };
 
@@ -68,7 +79,7 @@ export default function ExplorePage() {
     {
       question: "How should I use the Explore page?",
       answer:
-        "Use it as a hub. Pick a category, read a few explainers, then move into related topics and join the newsletter to keep learning.",
+        "Use it as a hub. Pick a category, read a few explainers, then move into related topics and follow the learning path to keep improving your understanding.",
     },
   ];
 
@@ -85,8 +96,63 @@ export default function ExplorePage() {
     })),
   };
 
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Explore AI topics",
+    description:
+      "Browse simple AI explanations covering ChatGPT, LLMs, AI agents, prompts, RAG, APIs, automation, comparisons, and more.",
+    url: pageUrl,
+  };
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "ELI5AI topic explorer",
+    itemListElement: explainers.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `https://www.eli5ai.co/explain/${item.slug}`,
+      name: item.title,
+    })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.eli5ai.co",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Explore",
+        item: pageUrl,
+      },
+    ],
+  };
+
   return (
     <>
+      <Script
+        id="explore-collection-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
+      />
+      <Script
+        id="explore-itemlist-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <Script
+        id="explore-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Script
         id="explore-faq-schema"
         type="application/ld+json"
@@ -99,6 +165,17 @@ export default function ExplorePage() {
         <SiteHeader />
 
         <div className="mx-auto max-w-6xl px-6 py-16">
+          <nav
+            aria-label="Breadcrumb"
+            className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/50"
+          >
+            <Link href="/" className="transition hover:text-white">
+              Home
+            </Link>
+            <span>/</span>
+            <span className="text-white/75">Explore</span>
+          </nav>
+
           <header className="mb-12">
             <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-sm text-cyan-200">
               Explore
@@ -109,8 +186,9 @@ export default function ExplorePage() {
             </h1>
 
             <p className="mt-5 max-w-3xl text-lg leading-8 text-white/68">
-              Explore simple AI explanations by topic. Start with the basics, move into
-              tools and workflows, and compare popular assistants without jargon.
+              Explore simple AI explanations by topic. Start with the basics,
+              move into tools and workflows, and compare popular assistants
+              without jargon.
             </p>
           </header>
 
@@ -196,8 +274,8 @@ export default function ExplorePage() {
                 Get one clear AI explanation every week
               </h2>
               <p className="mt-4 text-base leading-7 text-white/78">
-                Join the newsletter for plain-English AI learning, practical concepts,
-                and useful comparisons delivered one step at a time.
+                Join the newsletter for plain-English AI learning, practical
+                concepts, and useful comparisons delivered one step at a time.
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -208,10 +286,10 @@ export default function ExplorePage() {
                   Join the newsletter
                 </Link>
                 <Link
-                  href="/about"
+                  href="/start-here"
                   className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
                 >
-                  About ELI5AI
+                  Follow the beginner path
                 </Link>
               </div>
             </div>
