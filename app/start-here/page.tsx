@@ -1,22 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
+const pageUrl = "https://www.eli5ai.co/start-here";
+
 export const metadata: Metadata = {
-  title: "Start here",
+  title: "Best order to learn AI for beginners | Start here with ELI5AI",
   description:
-    "The best beginner path to start learning AI step by step in plain English.",
+    "Follow the best beginner path to learn AI step by step in plain English, from ChatGPT and LLMs to prompts, RAG, and AI agents.",
   alternates: {
-    canonical: "https://eli5ai.co/start-here",
+    canonical: pageUrl,
   },
   openGraph: {
-    title: "Start here | ELI5AI.co",
+    title: "Best order to learn AI for beginners | Start here with ELI5AI",
     description:
-      "The best beginner path to start learning AI step by step in plain English.",
-    url: "https://eli5ai.co/start-here",
+      "Follow the best beginner path to learn AI step by step in plain English, from ChatGPT and LLMs to prompts, RAG, and AI agents.",
+    url: pageUrl,
     siteName: "ELI5AI.co",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Best order to learn AI for beginners | Start here with ELI5AI",
+    description:
+      "Follow the best beginner path to learn AI step by step in plain English, from ChatGPT and LLMs to prompts, RAG, and AI agents.",
   },
 };
 
@@ -64,94 +73,169 @@ const learningPath = [
 ];
 
 export default function StartHerePage() {
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Best order to learn AI for beginners",
+    description:
+      "Follow the best beginner path to learn AI step by step in plain English.",
+    url: pageUrl,
+  };
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Beginner AI learning path",
+    itemListElement: learningPath.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `https://www.eli5ai.co${item.href}`,
+      name: item.title,
+    })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://www.eli5ai.co",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Start here",
+        item: pageUrl,
+      },
+    ],
+  };
+
   return (
-    <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
+    <>
+      <Script
+        id="start-here-page-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <Script
+        id="start-here-itemlist-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <Script
+        id="start-here-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
-      <SiteHeader />
+      <main className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-300 selection:text-neutral-950">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(168,85,247,0.14),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_30%)]" />
 
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <header className="mb-12">
-          <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-sm text-cyan-200">
-            Start here
-          </div>
+        <SiteHeader />
 
-          <h1 className="mt-5 text-4xl font-semibold tracking-tight md:text-6xl">
-            Your beginner path into AI
-          </h1>
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <nav
+            aria-label="Breadcrumb"
+            className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/50"
+          >
+            <Link href="/" className="transition hover:text-white">
+              Home
+            </Link>
+            <span>/</span>
+            <span className="text-white/75">Start here</span>
+          </nav>
 
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-white/68">
-            This page gives you the best order for learning AI basics without
-            getting lost in hype or technical jargon.
-          </p>
-        </header>
-
-        <section className="rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
-          <div className="mb-6">
-            <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
-              Learning path
+          <header className="mb-12">
+            <div className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-sm text-cyan-200">
+              Start here
             </div>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-4xl">
-              Follow this order
-            </h2>
-          </div>
 
-          <div className="grid gap-4">
-            {learningPath.map((item, index) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-[24px] border border-white/10 bg-black/20 p-6 transition hover:bg-black/30"
-              >
-                <div className="text-sm font-semibold text-cyan-300">
-                  Step {index + 1}
-                </div>
-                <h3 className="mt-2 text-2xl font-semibold tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-white/65">
-                  {item.desc}
-                </p>
-                <div className="mt-4 text-sm font-semibold text-cyan-300">
-                  Start this step →
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
+            <h1 className="mt-5 text-4xl font-semibold tracking-tight md:text-6xl">
+              Your beginner path into AI
+            </h1>
 
-        <section className="mt-10 rounded-[28px] border border-cyan-300/20 bg-cyan-300/10 p-7 md:p-8">
-          <div className="max-w-2xl">
-            <div className="text-sm uppercase tracking-[0.24em] text-cyan-200/85">
-              Newsletter
-            </div>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
-              Learn one concept at a time
-            </h2>
-            <p className="mt-4 text-base leading-7 text-white/78">
-              Join the newsletter if you want simple AI explanations sent to you
-              step by step instead of trying to learn everything at once.
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-white/68">
+              This page gives you the best order for learning AI basics without
+              getting lost in hype or technical jargon.
             </p>
+          </header>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/newsletter"
-                className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
-              >
-                Join the newsletter
-              </Link>
-              <Link
-                href="/explore"
-                className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
-              >
-                Explore all topics
-              </Link>
+          <section className="rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
+            <div className="mb-6">
+              <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
+                Learning path
+              </div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-4xl">
+                Follow this order
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-8 text-white/75">
+                Start with the simplest concepts first, then move into prompts,
+                APIs, and real workflows. This order is designed to reduce
+                confusion and help each topic make the next one easier to
+                understand.
+              </p>
             </div>
-          </div>
-        </section>
-      </div>
 
-      <SiteFooter />
-    </main>
+            <div className="grid gap-4">
+              {learningPath.map((item, index) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-[24px] border border-white/10 bg-black/20 p-6 transition hover:bg-black/30"
+                >
+                  <div className="text-sm font-semibold text-cyan-300">
+                    Step {index + 1}
+                  </div>
+                  <h3 className="mt-2 text-2xl font-semibold tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-6 text-white/65">
+                    {item.desc}
+                  </p>
+                  <div className="mt-4 text-sm font-semibold text-cyan-300">
+                    Start this step →
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-10 rounded-[28px] border border-cyan-300/20 bg-cyan-300/10 p-7 md:p-8">
+            <div className="max-w-2xl">
+              <div className="text-sm uppercase tracking-[0.24em] text-cyan-200/85">
+                Newsletter
+              </div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
+                Learn one concept at a time
+              </h2>
+              <p className="mt-4 text-base leading-7 text-white/78">
+                Join the newsletter if you want simple AI explanations sent to
+                you step by step instead of trying to learn everything at once.
+              </p>
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/newsletter"
+                  className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
+                >
+                  Join the newsletter
+                </Link>
+                <Link
+                  href="/explore"
+                  className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+                >
+                  Explore all topics
+                </Link>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <SiteFooter />
+      </main>
+    </>
   );
 }
