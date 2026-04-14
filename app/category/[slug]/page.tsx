@@ -6,6 +6,7 @@ import { explainers, type ExplainerCategory } from "@/lib/explainers";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
+export const dynamicParams = false;
 
 type Props = {
   params: { slug: string };
@@ -239,20 +240,19 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const { slug } = params;
-  const category = categoryConfig[slug as keyof typeof categoryConfig];
+  const category = categoryConfig[params.slug as keyof typeof categoryConfig];
 
   if (!category) {
     return {
-      title: "Category not found | ELI5AI.co",
+      title: "Category not found",
       description: "This category could not be found.",
     };
   }
 
-  const canonical = `https://www.eli5ai.co/category/${slug}`;
+  const canonical = `https://www.eli5ai.co/category/${params.slug}`;
 
   return {
-    title: `${category.title} | ELI5AI.co`,
+    title: category.title,
     description: category.description,
     alternates: {
       canonical,
@@ -273,15 +273,14 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 export default function CategoryPage({ params }: Props) {
-  const { slug } = params;
-  const category = categoryConfig[slug as keyof typeof categoryConfig];
+  const category = categoryConfig[params.slug as keyof typeof categoryConfig];
 
   if (!category) {
     notFound();
   }
 
   const items = explainers.filter((item) => item.category === category.label);
-  
+
   const featuredStartHere = category.startHere.reduce<(typeof explainers)[number][]>(
     (acc, featuredSlug) => {
       const found = explainers.find((item) => item.slug === featuredSlug);
@@ -291,7 +290,7 @@ export default function CategoryPage({ params }: Props) {
     []
   );
 
-  const canonical = `https://www.eli5ai.co/category/${slug}`;
+  const canonical = `https://www.eli5ai.co/category/${params.slug}`;
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -354,24 +353,24 @@ export default function CategoryPage({ params }: Props) {
   return (
     <>
       <Script
-        id={`category-schema-${slug}`}
+        id={`category-schema-${params.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(collectionPageSchema),
         }}
       />
       <Script
-        id={`faq-schema-${slug}`}
+        id={`faq-schema-${params.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <Script
-        id={`itemlist-schema-${slug}`}
+        id={`itemlist-schema-${params.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
       <Script
-        id={`breadcrumb-schema-${slug}`}
+        id={`breadcrumb-schema-${params.slug}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
@@ -409,73 +408,7 @@ export default function CategoryPage({ params }: Props) {
             <p className="mt-5 max-w-3xl text-lg leading-8 text-white/68">
               {category.intro}
             </p>
-
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              <div className="rounded-[24px] border border-white/10 bg-white/5 p-5">
-                <div className="text-2xl font-semibold tracking-tight">
-                  {items.length}
-                </div>
-                <div className="mt-1 text-sm text-white/55">
-                  Explainers in this category
-                </div>
-              </div>
-              <div className="rounded-[24px] border border-white/10 bg-white/5 p-5">
-                <div className="text-2xl font-semibold tracking-tight">
-                  Beginner friendly
-                </div>
-                <div className="mt-1 text-sm text-white/55">
-                  Written in plain English
-                </div>
-              </div>
-              <div className="rounded-[24px] border border-white/10 bg-white/5 p-5">
-                <div className="text-2xl font-semibold tracking-tight">
-                  Structured learning
-                </div>
-                <div className="mt-1 text-sm text-white/55">
-                  Start simple and go deeper
-                </div>
-              </div>
-            </div>
           </header>
-
-          <section className="mb-10 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
-            <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-              <div>
-                <h2 className="text-2xl font-semibold tracking-tight">
-                  What you will learn in {category.label}
-                </h2>
-                <div className="mt-4 space-y-4 text-base leading-8 text-white/75">
-                  <p>{category.whyMatters}</p>
-                  <p>{category.whoItsFor}</p>
-                </div>
-
-                <div className="mt-6 grid gap-3">
-                  {category.whatYouWillLearn.map((item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm leading-6 text-white/72"
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold">Common mistakes</h3>
-                <div className="mt-4 space-y-3">
-                  {category.commonMistakes.map((item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm leading-6 text-white/68"
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
 
           {featuredStartHere.length > 0 && (
             <section className="mb-10 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
@@ -486,10 +419,6 @@ export default function CategoryPage({ params }: Props) {
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-4xl">
                   Best first pages in {category.label}
                 </h2>
-                <p className="mt-4 max-w-3xl text-base leading-8 text-white/75">
-                  Start with these pages if you want the fastest path to
-                  understanding this topic properly.
-                </p>
               </div>
 
               <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -533,115 +462,26 @@ export default function CategoryPage({ params }: Props) {
               </Link>
             </div>
 
-            {items.length === 0 ? (
-              <div className="rounded-[24px] border border-white/10 bg-white/5 p-6 text-white/70">
-                This category is being expanded. Check back soon for more
-                explainers.
-              </div>
-            ) : (
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {items.map((item) => (
-                  <Link
-                    key={item.slug}
-                    href={`/explain/${item.slug}`}
-                    className="group rounded-[28px] border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.07]"
-                  >
-                    <div className="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/55">
-                      {item.category}
-                    </div>
-                    <h3 className="mt-4 text-2xl font-semibold tracking-tight">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-6 text-white/58">
-                      {item.description}
-                    </p>
-                    <div className="mt-6 text-sm font-semibold text-cyan-300 transition group-hover:text-cyan-200">
-                      Read explanation →
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </section>
-
-          <section className="mt-10 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
-            <div className="mb-6">
-              <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
-                Next categories
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight">
-                Continue your learning path
-              </h2>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              {category.nextCategories.map((item) => (
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {items.map((item) => (
                 <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-[24px] border border-white/10 bg-black/20 p-5 transition hover:bg-black/30"
+                  key={item.slug}
+                  href={`/explain/${item.slug}`}
+                  className="group rounded-[28px] border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.07]"
                 >
-                  <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <div className="mt-3 text-sm font-semibold text-cyan-300">
-                    Explore category →
+                  <div className="inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/55">
+                    {item.category}
+                  </div>
+                  <h3 className="mt-4 text-2xl font-semibold tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-6 text-white/58">
+                    {item.description}
+                  </p>
+                  <div className="mt-6 text-sm font-semibold text-cyan-300 transition group-hover:text-cyan-200">
+                    Read explanation →
                   </div>
                 </Link>
-              ))}
-            </div>
-          </section>
-
-          <section className="mt-10 rounded-[28px] border border-cyan-300/20 bg-cyan-300/10 p-7 md:p-8">
-            <div className="max-w-2xl">
-              <div className="text-sm uppercase tracking-[0.24em] text-cyan-200/85">
-                Newsletter
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
-                Keep learning AI one clear concept at a time
-              </h2>
-              <p className="mt-4 text-base leading-7 text-white/78">
-                Join the ELI5AI newsletter for plain-English AI explanations,
-                useful comparisons, and practical learning paths delivered one
-                step at a time.
-              </p>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/newsletter"
-                  className="rounded-2xl bg-cyan-300 px-5 py-3 text-sm font-bold text-neutral-950 transition hover:bg-cyan-200"
-                >
-                  Join the newsletter
-                </Link>
-                <Link
-                  href="/start-here"
-                  className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10"
-                >
-                  Follow the beginner path
-                </Link>
-              </div>
-            </div>
-          </section>
-
-          <section className="mt-10 rounded-[28px] border border-white/10 bg-white/5 p-7 md:p-8">
-            <div className="mb-6">
-              <div className="text-sm uppercase tracking-[0.24em] text-cyan-300/80">
-                FAQ
-              </div>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight">
-                Common questions about {category.label}
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              {category.faq.map((item) => (
-                <div
-                  key={item.question}
-                  className="rounded-2xl border border-white/10 bg-black/20 p-5"
-                >
-                  <h3 className="text-lg font-semibold">{item.question}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/65">
-                    {item.answer}
-                  </p>
-                </div>
               ))}
             </div>
           </section>
