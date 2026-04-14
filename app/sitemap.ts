@@ -1,68 +1,31 @@
 import type { MetadataRoute } from "next";
-
-const BASE_URL = "https://www.eli5ai.co";
-
-const EXPLAINERS = [
-  "what-is-chatgpt",
-  "what-is-an-llm",
-  "what-is-a-token-in-ai",
-  "what-is-context-window",
-  "what-is-prompt-engineering",
-  "what-is-an-api",
-  "what-is-an-embedding",
-  "what-is-a-vector-database",
-  "what-is-inference-in-ai",
-  "what-is-an-ai-agent",
-  "what-is-rag",
-  "what-is-mcp",
-  "what-is-a-system-prompt",
-  "what-is-fine-tuning",
-  "what-is-ai-automation",
-  "chatgpt-vs-claude",
-  "chatgpt-vs-gemini",
-  "claude-vs-gemini",
-  "ai-agent-vs-chatbot",
-  "rag-vs-fine-tuning",
-];
-
-const CATEGORIES = [
-  "ai-basics",
-  "ai-tools",
-  "ai-workflows",
-  "ai-comparisons",
-];
-
-const STATIC_PAGES = [
-  "",           // homepage
-  "explore",
-  "start-here",
-  "about",
-  "newsletter",
-];
+import { explainers } from "@/lib/explainers";
+import { categoryList } from "@/lib/categories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = "https://www.eli5ai.co";
   const now = new Date();
 
-  const statics = STATIC_PAGES.map((slug) => ({
-    url: slug ? `${BASE_URL}/${slug}` : BASE_URL,
+  const staticPages = [
+    "",
+    "/explore",
+    "/about",
+    "/newsletter",
+    "/start-here",
+    ...categoryList.map((category) => `/category/${category.slug}`),
+  ].map((path) => ({
+    url: `${baseUrl}${path}`,
     lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: slug === "" ? 1.0 : 0.8,
+    changeFrequency: "weekly" as const,
+    priority: path === "" ? 1 : 0.8,
   }));
 
-  const categories = CATEGORIES.map((cat) => ({
-    url: `${BASE_URL}/category/${cat}`,
-    lastModified: now,
+  const explainerPages = explainers.map((item) => ({
+    url: `${baseUrl}/explain/${item.slug}`,
+    lastModified: item.updatedAt ? new Date(item.updatedAt) : now,
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
 
-  const explainers = EXPLAINERS.map((slug) => ({
-    url: `${BASE_URL}/explain/${slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.9,
-  }));
-
-  return [...statics, ...categories, ...explainers];
+  return [...staticPages, ...explainerPages];
 }
