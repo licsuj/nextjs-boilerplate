@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { categoryList } from "@/lib/categories";
 
 export default function SiteFooter() {
   return (
@@ -11,10 +12,13 @@ export default function SiteFooter() {
           <Link href="/">Home</Link>
           <Link href="/explore">Explore</Link>
           <Link href="/start-here">Start here</Link>
-          <Link href="/category/ai-basics">AI Basics</Link>
-          <Link href="/category/ai-tools">AI Tools</Link>
-          <Link href="/category/ai-workflows">AI Workflows</Link>
-          <Link href="/category/ai-comparisons">Comparisons</Link>
+
+          {categoryList.map((category) => (
+            <Link key={category.slug} href={`/category/${category.slug}`}>
+              {category.label}
+            </Link>
+          ))}
+
           <Link href="/about">About</Link>
           <Link href="/newsletter">Newsletter</Link>
         </nav>
